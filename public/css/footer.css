@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+footer {
+    position: relative;
+}
+
+.footer-lines {
+    display: none;
+}
+
+.footer-box {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer {
+    background-color: #24262b;
+    padding: 150px 0 100px;
+}
+
+.footer-col {
+    width: 33.33%;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+
+
+.drop-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_symbol {
+    display: none;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+.footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 500px) {
+    .footer-col {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+/* 
+@media(max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+} */
+
+@media screen and (max-width: 500px) {
+
+    /* Hide the subheadings in the mobile version */
+    .mobile-version .footer-col ul {
+        display: none;
+    }
+
+    .add_symbol {
+        display: block;
+    }
+
+    .footer-lines {
+        display: block;
+        height: 0.5px;
+    }
+
+    /* Show the subheadings when the "+" symbol is clicked */
+    .mobile-version .footer-col.opened ul {
+        display: block;
+    }
+
+}
+
+footer .social-media {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 20px 50px;
+}
+
+footer .social-media i {
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+footer .social-media i:hover {
+    background-color: rgba(255, 255, 255, 0.437);
+    ;
+}
+
+footer .british-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px 0 0 50px;
+
+}
+
+footer .british-logo img {
+    width: 50px;
+    height: 25px;
+}
+
+footer .british-logo svg {
+    width: 100px;
+}
+
+/* responsive logo and icons */
+@media screen and (max-width: 1190px) {
+   footer .british-logo{
+    margin-left: 20px;
+   } 
+
+   footer .social-media{
+    margin-left: 20px;
+   }
+}
+
+/* remove flag in sm */
+
+@media screen and (max-width: 500px){
+    footer .british-logo img{
+        display: none;
+    }
+
+    footer .footer-box .footer-col .footer-lines{
+        margin-bottom: 20px;
+        color: #ffffff;
+        opacity: 1;
+    }
+
+    footer .footer-box .footer-col{
+        margin: 0;
+    }
+
+    footer .footer-box .footer-col ul{
+        margin-bottom: 20px;
+    }
+
+    .footer .footer-box .footer-col h4{
+        margin-bottom: 20px;
+    }
+
+    .footer{
+        padding: 100px 0;
+    }
+}

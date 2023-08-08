@@ -1,0 +1,106 @@
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const bcrypt = require('bcrypt'); // For password hashing
+// const saltRounds = 10; // Salt rounds for bcrypt
+// const path = require('path');
+// const mongoose = require('mongoose');
+// const { connectDB, User } = require('./db'); // Import the connectDB function
+// const dotenv = require('dotenv');
+// const jwt = require('jsonwebtoken');
+
+// dotenv.config(); // Load environment variables from .env file
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+
+// // Call the connectDB function to establish the MongoDB connection
+// connectDB();
+
+
+// app.set('view engine', 'ejs');
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// //redirect to login or dashboard
+// app.get('/', (req, res) => {
+//   res.redirect('login')
+// })
+
+// // Render the login page
+// app.get('/login', (req, res) => {
+//   res.render('login');
+// });
+
+// // Handle login form submission
+// app.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   const lowercaseEmail = email.toLowerCase();
+
+
+//   try {
+//     // Find the user by email in the database
+//     const user = await User.findOne({ email : lowercaseEmail });
+
+//     // If the user is not found, show an error message
+//     if (!user) {
+//       return res.status(401).send('Invalid email or passwrd');
+//     }
+
+//     // Compare the provided password with the hashed password in the database
+//     const passwordMatch = await bcrypt.compare(password, user.password);
+
+//     if (!passwordMatch) {
+//       // If the passwords don't match, show an error message
+//       return res.status(401).send('Invalid email or password');
+//     }
+
+//     // Authentication successful; redirect to the dashboard or protected page
+//     res.redirect('/dashboard');
+//   } catch (error) {
+//     console.error('Error logging in user:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// // Render the registration page
+// app.get('/register', (req, res) => {
+//   res.render('register');
+// });
+
+// // Handle registration form submission
+// app.post('/register', async (req, res) => {
+//   const { email, password, 'password-confirm': passwordConfirm } = req.body;
+//   const lowercaseEmail = email.toLowerCase();
+
+
+//   // Validate the password meets the criteria
+//   const passwordRegex = /^[a-zA-Z0-9]{6,16}$/;
+//   if (!password.match(passwordRegex) || password !== passwordConfirm) {
+//     return res.status(400).send('Invalid password or password confirmation.');
+//   }
+
+//   try {
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+//     // Save the user to the database
+//     await User.create({ email : lowercaseEmail, password: hashedPassword });
+
+//     // Redirect to the login page or dashboard after successful registration
+//     res.redirect('/login'); 
+//   } catch (error) {
+//     console.error('Error registering user:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// // Protected route (dashboard)
+// app.get('/dashboard', (req, res) => {
+//   // Check if the user is authenticated; you can implement session management or JWT
+//   // If the user is authenticated, render the dashboard, otherwise, redirect to login
+//   res.render('dashboard');
+// });
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
