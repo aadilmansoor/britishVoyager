@@ -23,23 +23,6 @@
     return keyValue ? keyValue[2] : null;
   }
 
-  function authenticateToken() {
-  const token = getCookie('token'); // Get the token from the cookie
-  console.log(token);
-  if (!token) {
-    // If the token is not present, the user is not authenticated
-    alert('You are not authenticated. Please login first.');
-    window.location.href = '/login'; // Redirect to login page
-  } else {
-    // You can proceed with rendering the dashboard or performing other actions here
-    // For example, fetch data from the server to populate the dashboard
-    console.log('Authenticated user:', token); // Example: Log the token for demonstration purposes
-  }
-}
-
-
-  authenticateToken();
-
 </script>
 
 <body>

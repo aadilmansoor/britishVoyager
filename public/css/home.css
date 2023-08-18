@@ -336,20 +336,20 @@ h6 {
   }
 }
 
-.product-image {
+.products .product-image {
   width: 300px;
   height: 300px;
   margin: 15px;
   background-color: #F2F2F2;
 }
 
-.product-image img {
+.products .product-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.product-name {
+.products .product .product-name {
   color: #000;
   font-size: 23px;
   font-weight: 600;
@@ -367,7 +367,7 @@ h6 {
   font-weight: 600;
 }
 
-.product-details {
+.products .product .product-details {
   width: 264px;
   height: 46px;
   background: var(--gradient, linear-gradient(90deg, #ED1C24 0%, #0A2569 100%));

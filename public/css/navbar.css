@@ -76,6 +76,10 @@
     gap: 15px;
     justify-content: space-evenly;
   }
+
+  .nav .nav_end i{
+    cursor: pointer;
+  }
   
   
   .nav .navOpenBtn,
