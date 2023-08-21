@@ -134,12 +134,26 @@ body{
 .main-product .product-right .color-selector .color-orange{
     background-color: #E55F05;
 }
+
+.main-product .product-right .size-button .btn-size.selected{
+    background-color: #2c2b29; /* Change this to your desired selected button color */
+    color: #FFFFFF; /* Change this to your desired text color */
+}
+
 .main-product .product-right .size-button .btn-size{
     padding:14px 30px;
     background-color: #FFFFFF; 
     border-width: 1px;
     border-radius: 2px;
 }
+
+.selected:hover {
+    background-color: #2c2b29; /* Maintain the same background color as when selected */
+    color: #FFFFFF; /* Maintain the same text color as when selected */
+    cursor: default; /* Disable the pointer cursor for the selected button */
+  }
+
+
 .main-product .product-right .size-para{
     font-size: 12px;
     color:#7C7C7C;

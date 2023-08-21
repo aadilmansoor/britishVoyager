@@ -99,7 +99,7 @@ app.get('/register', (req, res) => {
 
 // Handle registration form submission
 app.post('/register', async (req, res) => {
-  const { email, password, 'password-confirm': passwordConfirm } = req.body;
+  const { email, password, } = req.body;
 
 
   try {
@@ -109,11 +109,12 @@ app.post('/register', async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       return res.status(409).send('Email is already registered.');
-    } 
+    }
 
-      // Save the user to the database
-      await User.create({ email, password: hashedPassword });
-  
+    // Save the user to the database
+    await User.create({ email, password: hashedPassword });
+    res.status(200).send('Registered Successfully')
+
 
   } catch (error) {
     console.error('Error registering user:', error);
@@ -129,13 +130,78 @@ app.get('/home', (req, res) => {
 //Render the product page
 app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
-  const product = await Product.findOne({ id: parseInt(id)});
-  console.log(product);
-  console.log(product.name);
-  res.render('product');
+  const product = await Product.findOne({ id: parseInt(id) });
+  res.render('product', { product });
 });
 
+// Add a product to the user's cart
+app.post('/add-to-cart', async (req, res) => {
+  const { productId, size, token } = req.body; // Assuming you're sending the product ID in the request body 
+  const decodedToken = jwt.verify(token, secretKey);
 
+
+  try {
+    // Find the user by their email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    // Find the product by its ID
+    const product = await Product.findOne({ id: productId });
+
+    if (!user || !product) {
+      return res.status(404).send('User or product not found');
+    }
+
+    // Check if the product and size combination is already in the user's cart
+    const existingCartItem = user.cart.find(
+      (item) => String(item.product) === String(product._id) && item.size === size
+    );
+
+    if (existingCartItem) {
+      // If the product and size combination already exists, update the quantity
+      existingCartItem.quantity += 1;
+    } else {
+      // If not, add the product to the user's cart
+      user.cart.push({
+        product: product._id, // Store the product's ObjectId
+        quantity: 1,
+        size,
+      });
+    }
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).send('Product added to cart successfully');
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/get-cart', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  try {
+    // Find the user by their email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ cart: user.cart });
+  } catch (error) {
+    console.error('Error fetching cart data:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+app.get('/checkout', async (req,res) => {
+  res.render('checkout')
+} )
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

@@ -1,0 +1,82 @@
+.checkout-main{
+    padding: 5% 8%;
+    display: flex;
+    gap: 20px;
+    font-family: "Metropolis-Bold", Helvetica;
+}
+.checkout-main .delivery-address {
+    background-color: #F7F7F7;
+    padding: 5%;
+    width: 100%;
+}
+.checkout-main .delivery-address label {
+
+    font-size: 14px;
+
+}
+.checkout-main .delivery-address input, select {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.8rem;
+    border:none;
+    margin-bottom: 15px;
+}
+.checkout-main .delivery-address .button{
+    background-color: midnightblue;
+
+    color: white;
+    float: right;
+}
+
+.checkout-cart{
+    padding: 5%;
+    width:75%;
+    background-color: #F7F7F7;
+}
+.checkout-cart .table td {
+  
+    background-color: #F7F7F7;
+    font-size: 0.8rem;
+    color: #7C7C7C;
+    border-width: 0;
+}
+.checkout-cart .table th {
+    border-width: 0 0 2px;
+   
+    background-color: #F7F7F7;
+}
+.coupon-cart{
+    display: flex;
+    justify-content: space-between;
+}
+.coupon-buttnlayout{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.coupon-buttnlayout input{
+    border:none;
+    padding: 8px;
+}
+.coupon-buttnlayout button{
+    border-radius: 0px;
+    font-size: 12px;
+}
+.card-design{
+    border-style: solid;
+    border-width: 1px;
+}
+.card-design:hover{
+    border-color: #ED1C24;
+    color: #ED1C24;
+}
+.place-order{
+    margin-top: 10px;
+    width: 100%;
+    font-size: 13px !important;
+    border-radius: 0px !important;
+    background-color: midnightblue !important;
+    color: white;
+    float: right;
+
+}

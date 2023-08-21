@@ -69,7 +69,7 @@ document.querySelector('.registration-btn').addEventListener('click', async (e) 
 
   if (response.ok) {
     alert("Registration successfull");
-    window.location.href = '/login';
+    window.location.reload();
   } else {
     const error = await response.text();
     alert(error);

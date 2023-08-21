@@ -21,3 +21,7 @@ navCloseBtn.addEventListener("click", () => {
     nav.classList.remove("openNav");
 });
 
+function getCookie(name) {
+    const keyValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+  }

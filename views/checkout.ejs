@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/checkout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
+    <title>British Voyager</title>
+    <script src="https://kit.fontawesome.com/99a73375c2.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+        <div class="checkout-main">
+            <div class="delivery-address">
+                <h3 class="mb-3">Delivery Address</h3>
+                <form action="">
+
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="eg Abdu" required>
+
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="eg Abdu" required>
+
+                    <label for="country">Country/Region:</label>
+                    <select class="mb-3" id="country" name="country" required>
+                        <option value="USA">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+
+                    <label for="street_address">Street Address:</label>
+                    <input type="text" id="street_address_1" name="street_address_1" placeholder="Street Address Line 1"
+                        required>
+                    <input type="text" id="street_address_2" name="street_address_2"
+                        placeholder="Street Address Line 2">
+
+                    <label for="town_city">Town/City:</label>
+                    <input type="text" id="town_city" name="town_city" placeholder="town" required>
+
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="tel" id="phone_number" name="phone_number" placeholder="eg Phone" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="email" required>
+
+                    <input class="w-50 button" type="submit" value="Submit">
+                </form>
+
+
+
+
+            </div>
+            <div class="checkout-cart">
+                <div class="cart-contentsmain">
+                    <h3 class="mb-4">Your order</h3>
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+
+                                <th scope="col" colspan="4">Product</th>
+                                <th scope="col">Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row" colspan="4">COODLE PLUS ROCKET 01 - BLUE × 1</td>
+                                <td colspan="1">KD 2.999</td>
+
+
+                            </tr>
+                            <tr>
+                                <td scope="row" colspan="4">COODLE PLUS ROCKET 01 - BLUE × 1</td>
+
+                                <td>KD 2.999</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row" colspan="4">Subtotal</th>
+
+                                <th>KD 2.999</th>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr class="m-0">
+                    <div class="coupon-cart mt-3">
+                        <div>
+                            <p class="fw-bold" style="font-size: 14px;"> Coupon Code</p>
+                        </div>
+                        <div class="coupon-buttnlayout"> <input type="text" placeholder="coupon code">
+                            <button class="btn btn-danger">Apply Coupon</button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3 mb-3">
+                        <p class="fw-bolder" style="font-size: 16px;">Total</p>
+                        <p class="fw-bolder" style="margin-right: 100px;">KD 15.900</p>
+                    </div>
+                    <div class="row mb-3" style="row-gap: 10px;">
+                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
+                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
+                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
+                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
+                    </div>
+                    <p>Returns & Exchange</p>
+                    <div class="d-flex gap-2 mb-2" > <input type="checkbox" name="" id=""> <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy *</p></div>
+                    <div class="d-flex gap-2" > <input type="checkbox" name="" id=""> <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy *</p></div>
+
+                    <button class="btn btn-primary place-order p-2"> Place Order</button>
+                </div>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+
+</body>
+
+</html>
