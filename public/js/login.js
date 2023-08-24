@@ -25,7 +25,7 @@ document.querySelector('.login-btn').addEventListener('click', async (e) => {
   });
   if (response.ok) {
     const data = await response.json();
-    setCookie('token', data.token, 1); // Save the token in a cookie (1 day expiration)
+    setCookie('token', data.token, 10); // Save the token in a cookie (1 day expiration)
     window.location.href = '/home';
   } else {
     const error = await response.text();
