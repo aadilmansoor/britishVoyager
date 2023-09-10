@@ -1,26 +1,71 @@
+function decodeJwt(token) {
+    const payloadBase64 = token.split('.')[1];
+    const payloadDecoded = atob(payloadBase64);
+    return JSON.parse(payloadDecoded);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const cartButton = document.querySelector(".nav_end .fa-cart-shopping");
     const cart = document.getElementById("cart");
 
     const token = getCookie('token'); // Get the token from the cookie
-    if (!token) {
-        // If the token is not present
-        cart.innerHTML = `<svg class="close" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+
+    // Get the token from localStorage (or wherever you have stored it)
+
+    if (token) {
+        const decodedToken = decodeJwt(token);
+
+        const expirationTimestamp = decodedToken.exp * 1000; // Convert to milliseconds
+        const currentTimestamp = Date.now();
+
+        if (currentTimestamp > expirationTimestamp) {
+            // Token has expired, handle it (e.g., redirect to login)
+            cart.style.height = "500px";
+            cart.innerHTML = `<svg class="close" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
         <path d="M1 1L14 14M1 14L14 1" stroke="#6C6C6C" stroke-width="2" />
         </svg>
         <button class="login">Log In</button>`
+            const login = document.querySelector(".cart .login");
+            login.addEventListener('click', () => {
+                window.location.href = '/login'
+            })
+            console.log('Token has expired');
+        } else {
+            // Token is still valid, continue with your application logic
+            console.log('Token is still valid');
+        }
+    } else {
+        // Token not found, handle it (e.g., redirect to login)
+        // If the token is not present
+        cart.style.height = "500px";
+        cart.innerHTML = `<svg class="close" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                <path d="M1 1L14 14M1 14L14 1" stroke="#6C6C6C" stroke-width="2" />
+                </svg>
+                <button class="login">Log In</button>`
         const login = document.querySelector(".cart .login");
         login.addEventListener('click', () => {
             window.location.href = '/login'
         })
+        console.log('Token not found');
     }
+    // if (!token) {
+    //     // If the token is not present
+    //     cart.innerHTML = `<svg class="close" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+    //     <path d="M1 1L14 14M1 14L14 1" stroke="#6C6C6C" stroke-width="2" />
+    //     </svg>
+    //     <button class="login">Log In</button>`
+    //     const login = document.querySelector(".cart .login");
+    //     login.addEventListener('click', () => {
+    //         window.location.href = '/login'
+    //     })
+    // }
 
 
     cartButton.addEventListener('click', () => {
         const buttonRect = cartButton.getBoundingClientRect();
-        if(window.innerWidth <= 768){
+        if (window.innerWidth <= 768) {
             const cartWidth = cart.getBoundingClientRect().width;
-            cart.style.right = window.innerWidth - buttonRect.right  + 'px' + cartWidth/2;
+            cart.style.right = window.innerWidth - buttonRect.right + 'px' + cartWidth / 2;
         } else {
             cart.style.right = window.innerWidth - buttonRect.right + 'px';
         }
@@ -45,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-getCart(token);
+    getCart(token);
 
 });
 

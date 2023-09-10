@@ -42,6 +42,7 @@ footer {
 .footer-col {
     width: 33.33%;
     padding: 0 15px;
+    text-align: center;
 }
 
 .footer-col h4 {
@@ -57,7 +58,7 @@ footer {
 
 .drop-options {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 

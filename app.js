@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const { connectDB, User, Product } = require('./db'); // Import the connectDB function
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const paypal = require('paypal-rest-sdk');
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -20,6 +21,12 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+paypal.configure({
+  mode: process.env.PAYPAL_MODE, // 'sandbox' or 'live'
+  client_id: process.env.PAYPAL_CLIENT_ID,
+  client_secret: process.env.PAYPAL_SECRET_KEY,
+});
 
 // Secret key for JWT (replace this with your own secret key)
 const secretKey = process.env.SECRET_KEY;
@@ -202,6 +209,64 @@ app.get('/get-cart', authenticateToken, async (req, res) => {
 app.get('/checkout', async (req,res) => {
   res.render('checkout')
 } )
+
+app.post('/create-payment', (req, res) => {
+  const createPaymentJson = {
+    intent: 'sale',
+    payer: {
+      payment_method: 'paypal',
+    },
+    redirect_urls: {
+      return_url: 'http://localhost:3000/execute-payment',
+      cancel_url: 'http://localhost:3000/cancel-payment',
+    },
+    transactions: [
+      {
+        amount: {
+          total: '25',
+          currency: 'RUB',
+        },
+        description: 'Payment description',
+      },
+    ],
+  };
+
+  paypal.payment.create(createPaymentJson, (error, payment) => {
+    if (error) {
+      console.error(error);
+    } else {
+      for (const link of payment.links) {
+        if (link.rel === 'approval_url') {
+          res.redirect(link.href);
+        }
+      }
+    }
+  });
+});
+
+app.get('/execute-payment', (req, res) => {
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+
+  const executePaymentJson = {
+    payer_id: payerId,
+  };
+
+  paypal.payment.execute(paymentId, executePaymentJson, (error, payment) => {
+    if (error) {
+      console.error(error);
+    } else {
+      // Payment successful, handle post-payment actions (e.g., order completion)
+      res.render('success'); // Render success page
+    }
+  });
+});
+
+app.get('/cancel-payment', (req, res) => {
+  // Handle canceled payment
+  res.render('cancel'); // Render cancel page
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

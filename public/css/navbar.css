@@ -54,6 +54,7 @@
   .nav .header_logo {
     font-size: 22px;
     font-weight: 500;
+    cursor: pointer;
   }
   
   .nav .nav-links {

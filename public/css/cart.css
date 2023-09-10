@@ -1,7 +1,6 @@
 .cart {
     background: white;
     width: 400px;
-    min-height: 700px;
     position: relative;
     position: absolute;
     border: 1px solid #ccc;
@@ -22,6 +21,7 @@
 
 .cart .cart-line{
     color: #1A1A1A;
+    width: 90%;
 }
 
 .cart .cart-top {
@@ -164,8 +164,6 @@
 }
 
 .cart .checkout {
-    position: absolute;
-    bottom: 0;
     width: 100%;
 }
 
