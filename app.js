@@ -141,6 +141,10 @@ app.get('/product/:id', async (req, res) => {
   res.render('product', { product });
 });
 
+app.get('/profile', (req, res) => {
+  res.render('profile'); 
+});
+
 // Add a product to the user's cart
 app.post('/add-to-cart', async (req, res) => {
   const { productId, size, token } = req.body; // Assuming you're sending the product ID in the request body 

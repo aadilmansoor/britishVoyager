@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (event) {
         const closeButton = event.target.closest('.cart svg');
         if (closeButton) {
-            console.log("Close button clicked");
             cart.style.display = 'none';
         }
     });
