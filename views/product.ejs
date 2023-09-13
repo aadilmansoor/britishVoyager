@@ -41,7 +41,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <button class="btn-primary btn Add-miniCart ms-2" >ADD TO
+        <button class="btn-primary btn Add-miniCart ms-2">ADD TO
           CART</button>
         <button class="btn-primary btn Buy-miniCart ms-2">BUY NOW</button>
       </div>
@@ -93,8 +93,85 @@
           <button class="btn-primary btn-size selected">Medium</button>
           <button class="btn-primary btn-size">Large</button>
         </div>
-        <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO CART</button>
+        <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO
+          CART</button>
         <button class="btn-buynow btn-cart d-block">BUY NOW</button>
+        <p class="mt-5 product-desc">Introducing Ryder Hard Luggage, our flagship collection that combines timeless
+          style with exceptional functionality. Ryder is available in two sophisticated colors: Midnight Blue and
+          Gunmetal. Equipped with a reliable TSA lock and smooth dual wheels. Step inside, and you'll discover a
+          thoughtfully designed interior with carefully placed compartments and pockets, allowing you to keep your
+          belongings organized and easily accessible. Plus, with our 5-year warranty, you can embark on your adventures
+          with peace of mind, knowing that Ryder is built to last.</p>
+        <div class="prod-desc-properties-main">
+          <div class="prod-desc-properties">
+
+            <div class="prod-desc-properties-img">
+              <img src="/images/dualwheels.png" alt="">
+            </div>
+            <div class="prod-desc-properties-data">
+              <p class="prod-desc-properties-data-heading">Dual Wheels</p>
+              <p class="prod-desc-properties-data-para">
+                Safari's whisper wheels offer quiet and effortless maneuverability in every direction.</p>
+            </div>
+
+          </div>
+          <div class="prod-desc-properties">
+
+            <div class="prod-desc-properties-img">
+              <img src="/images/zipper.png" alt="">
+            </div>
+            <div class="prod-desc-properties-data">
+              <p class="prod-desc-properties-data-heading">Anti-theft Zipper</p>
+              <p class="prod-desc-properties-data-para">
+                Dual coil security zipper makes it difficult to break open providing an added layer of security.</p>
+            </div>
+
+          </div>
+          <div class="prod-desc-properties">
+
+            <div class="prod-desc-properties-img">
+              <img src="/images/shell.png" alt="">
+            </div>
+            <div class="prod-desc-properties-data">
+              <p class="prod-desc-properties-data-heading">Unbreakable Polycarbonate Shell</p>
+              <p class="prod-desc-properties-data-para">
+                Made with 100% virgin polycarbonate, this lightweight yet strong shell can withstand any journey</p>
+            </div>
+
+          </div>
+          <div class="prod-desc-properties">
+            <div class="prod-desc-properties-img">
+              <img src="/images/handle.png" alt="">
+            </div>
+            <div class="prod-desc-properties-data">
+              <p class="prod-desc-properties-data-heading">Telescopic Handle</p>
+              <p class="prod-desc-properties-data-para">
+                Our multi-stop telescopic handle is adjustable, making it suitable for all customer heights.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="prod-dimension-size mt-4">
+          <p class="prod-dimension-size-heading">Size and Dimensions</p>
+          <p class="prod-dimension-size-data-para">Cabin- Dimension: 59 x 40 x 27 CM, Capacity: 49 L, Weight: 3 Kgs</p>
+          <p class="prod-dimension-size-data-para">Medium- Dimension: 69 x 49 x 31 CM, Capacity: 83 L ,Weight: 3.5 Kgs
+          </p>
+          <p class="prod-dimension-size-data-para"> Large- Dimension: 79 x 57 x 34 CM, Capacity: 125 L ,Weight: 6.1 Kgs
+          </p>
+          <hr>
+        </div>
+        <div class="prod-dimension-size mt-4">
+          <p class="prod-dimension-size-heading">Imported/Manufactured by</p>
+          <p class="prod-dimension-size-data-para">Imported/Manufactured by: Manufactured by Safari Industries (India) LtdAddress: 302-303, A Wing, The Qube, Sir Mathuradas Vasanji Rd, Marol, Andheri East, Mumbai, Maharashtra 400059Country of Origin: IndiaNet Quantity: 1</p>
+          <hr>
+        </div>
+        <div class="product-pincode">
+          <p class="product-pincode-heading">Enter Delivery Pincode</p>
+          <div class="pincode-button">
+            <input class="pincode-input" type="text" placeholder="Enter  Pincode">
+            <button class="btn button"> check</button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- product details end -->
@@ -343,14 +420,14 @@
       const size = document.querySelector(".selected").innerText;
       const productId = addToCartButton.getAttribute('data-product-id');
       try {
-      const response = await fetch('/add-to-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include your JWT token
-        },
-        body: JSON.stringify({ productId, size, token }),
-      });
+        const response = await fetch('/add-to-cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include your JWT token
+          },
+          body: JSON.stringify({ productId, size, token }),
+        });
         if (response.ok) {
           alert('Product added to cart');
           // You can perform additional actions, like updating the cart icon
@@ -378,9 +455,9 @@
       });
     });
   });
-  
 
-  
+
+
 </script>
 
 </html>

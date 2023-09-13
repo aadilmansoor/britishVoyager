@@ -89,17 +89,74 @@ body{
     width: 100%;
     display: flex;
     justify-content: center;
-    max-height: 500px;
 }
 .main-product .main-image img{
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
+    height:500px;
 }
 
 .main-product .product-right{
     width: 50%;
     padding: 2% 10%;
+    overflow-y: scroll;
+    height: 520px;
+}       
+.main-product .product-right .product-desc{
+    font-size: 12px;
+    text-align: justify;
+    line-height: 2;
+}
+.product-right .prod-desc-properties-data p{
+    font-size: 8px;
+    margin: 0;
+}
+.prod-desc-properties-img{
+    display: flex;
+    align-items: center;
+}
+.product-right .prod-desc-properties{
+    display: flex;
+    gap:10px;
+}
+.prod-dimension-size-heading{
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 10px !important;
+    
+}
+.prod-dimension-size-data-para{
+    font-size: 10px;
+    text-align: justify;
+    color:#7C7C7C;
+    margin:0;
+}
+.prod-desc-properties-main{
+    display: flex;
+    gap:20px;
+    flex-direction: column;
+}
+.pincode-button{
+    display: flex;
+    justify-content: space-between;
+}
+.pincode-button{
+    border:1px solid;
+    padding: 5px 10px;
+}
+.product-pincode-heading{
+    font-weight: 500;
+    font-size: 14px;
+}
+.pincode-input{
+    border:0px;
+    outline: none;
+
+}
+.prod-desc-properties-data-heading{
+    font-weight: 600;
+    font-size: 10px !important;
+}
+.prod-desc-properties-data-para{
+    color:#7C7C7C;
 }
 .main-product .product-reviewpara{
     margin-left:80px;
@@ -136,26 +193,12 @@ body{
 .main-product .product-right .color-selector .color-orange{
     background-color: #E55F05;
 }
-
-.main-product .product-right .size-button .btn-size.selected{
-    background-color: #2c2b29; /* Change this to your desired selected button color */
-    color: #FFFFFF; /* Change this to your desired text color */
-}
-
 .main-product .product-right .size-button .btn-size{
     padding:14px 30px;
     background-color: #FFFFFF; 
     border-width: 1px;
     border-radius: 2px;
 }
-
-.selected:hover {
-    background-color: #2c2b29; /* Maintain the same background color as when selected */
-    color: #FFFFFF; /* Maintain the same text color as when selected */
-    cursor: default; /* Disable the pointer cursor for the selected button */
-  }
-
-
 .main-product .product-right .size-para{
     font-size: 12px;
     color:#7C7C7C;
