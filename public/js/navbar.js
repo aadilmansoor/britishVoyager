@@ -26,6 +26,6 @@ function getCookie(name) {
     return keyValue ? keyValue[2] : null;
   }
 
-const home = () => {
-    window.location.href = "/home"
+const movePage = (link) => {
+    window.location.href = `/${link}`
 }
