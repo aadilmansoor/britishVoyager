@@ -70,6 +70,9 @@ const productSchema = new mongoose.Schema({
       type: String,
       required: true,
     }],
+    mainImage: {
+      type: String
+    },
   });
   
 const Product = mongoose.model('Product', productSchema);
