@@ -25,7 +25,7 @@
   <%- include('partials/navbar') %>
     <div class="cart_mini ">
       <div class="mini_align">
-        <img src="./images/LockationBlack.png" alt="" class="mini-cartImg">
+        <img src="/images/LockationBlack.png" alt="" class="mini-cartImg">
         <p class="mini_para">Ryder Hard Luggage With TSA Lock and Dual Wheels - Midnight Blue</p><span
           class="mini_para ">KD 45000</span>
       </div>
@@ -52,26 +52,26 @@
     <div class="main-product">
       <div class="product-left">
         <div class=" img-wrap">
-          <img src="/images/Rectangle 146.png" alt="">
-          <img src="/images/Rectangle 147.png" alt="">
-          <img src="/images/Rectangle 145.png" alt="">
-          <img src="/images/Rectangle 149.png" alt="">
-          <img src="/images/Rectangle 147.png" alt="">
-          <img src="/images/Rectangle 147.png" alt="">
-          <img src="/images/Rectangle 147.png" alt="">
+          <img onclick="imageSelector('<%=product.mainImage%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.mainImage%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image2%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image2%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image3%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image3%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image4%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image4%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image5%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image5%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image6%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image6%>_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.image7%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image7%>_sq.jpg" alt="">
         </div>
-        <div class=" main-image"><img id="main_img" src="/images/<%=product.mainImage%>.jpg" alt="product image"></div>
+        <div class=" main-image"><img id="main_img" src="/images/<%= product.id %>/<%=product.mainImage%>.jpg" alt="product image"></div>
       </div>
       <div class="product-right">
         <h3>Airconic| Check-In Luggage Black ...</h3>
-        <span>
+        <span class="my-1">
           <img src="/images/review star.png" alt="">
           <img src="/images/review star.png" alt="">
           <img src="/images/review star.png" alt="">
           <img src="/images/review star.png" alt="">
           <img src="/images/review star.png" alt="">
+          <p class="product-reviewpara d-inline">33 review</p><br>
         </span>
-        <p class="product-reviewpara">33 review</p>
         <p class="d-inline para-price me-2">Selling price KD 45000/-</p> <span class="offer-span">SAVE 56%</span>
         <span class="d-block mb-3 size-para">(inclusive all taxes) </span>
         <p>COLOR</p>
@@ -96,12 +96,7 @@
         <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO
           CART</button>
         <button class="btn-buynow btn-cart d-block">BUY NOW</button>
-        <p class="mt-5 product-desc">Introducing Ryder Hard Luggage, our flagship collection that combines timeless
-          style with exceptional functionality. Ryder is available in two sophisticated colors: Midnight Blue and
-          Gunmetal. Equipped with a reliable TSA lock and smooth dual wheels. Step inside, and you'll discover a
-          thoughtfully designed interior with carefully placed compartments and pockets, allowing you to keep your
-          belongings organized and easily accessible. Plus, with our 5-year warranty, you can embark on your adventures
-          with peace of mind, knowing that Ryder is built to last.</p>
+        <p class="mt-5 product-desc"><%=product.desc%></p>
         <div class="prod-desc-properties-main">
           <div class="prod-desc-properties">
 
@@ -456,6 +451,19 @@
     });
   });
 
+function imageSelector(imageName, productId) {
+    console.log(`Clicked on image with mainImage: ${imageName} and productId: ${productId}`);
+
+    // Check that mainImage is correctly defined as a reference to the img element
+    const mainImage = document.getElementById('main_img'); // Replace 'mainImage' with the actual ID of your img element
+
+    // Check the generated image path
+    const imagePath = `/images/${productId}/${imageName}.jpg`;
+    console.log(`Updating image source to: ${imagePath}`);
+
+    // Update the src attribute
+    mainImage.src = imagePath;
+}
 
 
 </script>

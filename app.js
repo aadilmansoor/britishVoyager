@@ -108,7 +108,6 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
   const { email, password, } = req.body;
 
-
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -138,7 +137,6 @@ app.get('/home', (req, res) => {
 app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
   const product = await Product.findOne({ id: parseInt(id) });
-  console.log(product.mainImage);
   res.render('product', { product });
 });
 
@@ -213,7 +211,7 @@ app.get('/get-cart', authenticateToken, async (req, res) => {
 
 app.get('/checkout', async (req,res) => {
   res.render('checkout')
-} )
+})
 
 app.post('/create-payment', (req, res) => {
   const createPaymentJson = {

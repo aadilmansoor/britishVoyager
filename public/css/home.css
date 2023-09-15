@@ -262,21 +262,18 @@ h6 {
   object-fit: contain;
 }
 
-/* .suite1 {
-  margin-left: -130px;
-} */
+.suite1 {
+  margin: -44px 2px 0 25px;
+}
 
 .suite2 {
-  margin: -350px 0 0 40px;
+  margin: -346px 0 0 150px;
 }
 
 .suite3 {
-  margin: 100px 0 0 60px;
+  margin: 315px 0 0 -165px;
 }
 
-.suite4 {
-  margin: -85px 0 0 315px;
-}
 
 @media screen and (max-width: 1399px) {
   .split {
@@ -295,28 +292,28 @@ h6 {
 
 
   .suitcase {
-    width: 140px;
+    width: 150px;
   }
 
   .suitcase-active {
-    width: 230px;
+    width: 240px;
   }
 
   .suite1 {
-    margin: 105px 0 0 0;
+    margin: 18px 0 0 0;
   }
 
   .suite2 {
-    margin: -305px 0 0 70px;
+    margin: -350px 0 0 150px;
   }
 
   .suite3 {
-    margin: 110px 0 0 60px;
+    margin: 365px 0 0 -165px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -90px 0 0 315px;
-  }
+  } */
 
 }
 
@@ -329,32 +326,32 @@ h6 {
   }
 
   .circle-image {
-    width: 445px;
+    width: 444px;
   }
 
   .suitcase {
-    width: 126px;
+    width: 139px;
   }
 
   .suitcase-active {
-    width: 207px;
+    width: 216px;
   }
 
   .suite1 {
-    margin: 95px 0 0 0;
+    margin: 16px 0 0 0;
   }
 
   .suite2 {
-    margin: -275px 0 0 63px;
+    margin: -315px 0 0 135px;
   }
 
   .suite3 {
-    margin: 99px 0 0 52px;
+    margin: 328px 0 0 -148px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -81px 0 0 284px;
-  }
+  } */
 
 }
 
@@ -363,163 +360,201 @@ h6 {
   .circle-line {
     width: 648px;
     height: 567px;
-    padding: 17px;
+    padding: 16px;
   }
 
   .circle-image {
-    width: 401px;
+    width: 400px;
   }
 
   .suitcase {
-    width: 114px;
+    width: 125px;
   }
 
   .suitcase-active {
-    width: 187px;
+    width: 194px;
   }
 
   .suite1 {
-    margin: 86px 0 0 0;
+    margin: 14px 0 0 0;
   }
 
   .suite2 {
-    margin: -248px 0 0 57px;
+    margin: -283px 0 0 121px;
   }
 
   .suite3 {
-    margin: 90px 0 0 47px;
+    margin: 295px 0 0 -133px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -73px 0 0 256px;
-  }
+  } */
 
 }
 
 @media screen and (max-width: 650px) {
 
   .circle-line {
-    width: 584px;
-    height: 511px;
-    padding: 16px;
+    width: 583px;
+    height: 510px;
+    padding: 14px;
   }
 
   .circle-image {
-    width: 361px;
+    width: 360px;
   }
 
   .suitcase {
-    width: 103px;
+    width: 112px;
   }
 
   .suitcase-active {
-    width: 169px;
+    width: 175px;
   }
 
   .suite1 {
-    margin: 78px 0 0 0;
+    margin: 13px 0 0 0;
   }
 
   .suite2 {
-    margin: -224px 0 0 52px;
+    margin: -255px 0 0 109px;
   }
 
   .suite3 {
-    margin: 81px 0 0 43px;
+    margin: 265px 0 0 -120px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -66px 0 0 231px;
-  }
+  } */
 
 }
 
 @media screen and (max-width: 590px) {
 
   .circle-line {
-    width: 526px;
-    height: 460px;
-    padding: 15px;
+    width: 525px;
+    height: 459px;
+    padding: 13px;
   }
 
   .circle-image {
-    width: 325px;
+    width: 324px;
   }
 
   .suitcase {
-    width: 93px;
+    width: 101px;
   }
 
   .suitcase-active {
-    width: 153px;
+    width: 157px;
   }
 
   .suite1 {
-    margin: 71px 0 0 0;
+    margin: 12px 0 0 0;
   }
 
   .suite2 {
-    margin: -202px 0 0 47px;
+    margin: -229px 0 0 98px;
   }
 
   .suite3 {
-    margin: 73px 0 0 39px;
+    margin: 238px 0 0 -108px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -60px 0 0 208px;
-  }
+  } */
 
 }
 
 @media screen and (max-width: 520px) {
 
   .circle-line {
-    width: 474px;
-    height: 414px;
-    padding: 14px;
+    width: 472px;
+    height: 413px;
+    padding: 12px;
   }
 
   .circle-image {
-    width: 293px;
+    width: 292px;
   }
 
   .suitcase {
-    width: 84px;
+    width: 91px;
   }
 
   .suitcase-active {
-    width: 138px;
+    width: 141px;
   }
 
   .suite1 {
-    margin: 64px 0 0 0;
+    margin: 11px 0 0 0;
   }
 
   .suite2 {
-    margin: -182px 0 0 43px;
+    margin: -206px 0 0 88px;
   }
 
   .suite3 {
-    margin: 66px 0 0 36px;
+    margin: 214px 0 0 -97px;
   }
 
-  .suite4 {
-    margin: -54px 0 0 188px;
-  }
+  /* .suite4 {
+    margin: -54px 0 0 -97px;
+  } */
 
 }
 
 @media screen and (max-width: 475px) {
 
   .circle-line {
-    width: 427px;
-    height: 373px;
-    padding: 13px;
+    width: 425px;
+    height: 372px;
+    padding: 11px;
   }
 
   .circle-image {
-    width: 264px;
+    width: 263px;
+  }
+
+  .suitcase {
+    width: 82px;
+  }
+
+  .suitcase-active {
+    width: 127px;
+  }
+
+  .suite1 {
+    margin: 10px 0 0 0;
+  }
+
+  .suite2 {
+    margin: -185px 0 0 79px;
+  }
+
+  .suite3 {
+    margin: 193px 0 0 -87px;
+  }
+
+  /* .suite4 {
+    margin: -49px 0 0 170px;
+  } */
+
+}
+
+@media screen and (max-width: 425px) {
+
+  .circle-line {
+    width: 382px;
+    height: 335px;
+    padding: 10px;
+  }
+
+  .circle-image {
+    width: 237px;
   }
 
   .suitcase {
@@ -527,100 +562,62 @@ h6 {
   }
 
   .suitcase-active {
-    width: 125px;
+    width: 114px;
   }
 
   .suite1 {
-    margin: 58px 0 0 0;
+    margin: 9px 0 0 0;
   }
 
   .suite2 {
-    margin: -164px 0 0 39px;
+    margin: -166px 0 0 71px;
   }
 
   .suite3 {
-    margin: 60px 0 0 33px;
+    margin: 174px 0 0 -78px;
   }
 
-  .suite4 {
-    margin: -49px 0 0 170px;
-  }
-
-}
-
-@media screen and (max-width: 425px) {
-
-  .circle-line {
-    width: 385px;
-    height: 336px;
-    padding: 12px;
-  }
-
-  .circle-image {
-    width: 238px;
-  }
-
-  .suitcase {
-    width: 67px;
-  }
-
-  .suitcase-active {
-    width: 113px;
-  }
-
-  .suite1 {
-    margin: 53px 0 0 0;
-  }
-
-  .suite2 {
-    margin: -148px 0 0 36px;
-  }
-
-  .suite3 {
-    margin: 33px 0 0 30px;
-  }
-
-  .suite4 {
+  /* .suite4 {
     margin: -45px 0 0 153px;
-  }
+  } */
 
 }
 
 @media screen and (max-width: 380px) {
 
   .circle-line {
-    width: 347px;
-    height: 303px;
-    padding: 11px;
+    width: 349px;
+    height: 301px;
+    padding: 9px;
   }
 
   .circle-image {
-    width: 215px;
+    width: 213px;
   }
 
   .suitcase {
-    width: 61px;
+    width: 66px;
   }
 
   .suitcase-active {
-    width: 102px;
+    width: 103px;
   }
 
   .suite1 {
-    margin: 48px 0 0 0;
+    margin: 8px 0 0 0;
   }
 
   .suite2 {
-    margin: -154px 0 0 33px;
+    margin: -149px 0 0 64px;
   }
 
   .suite3 {
-    margin: 30px 0 0 27px;
+    margin: 155px 0 0 -70px;
   }
 
-  .suite4 {
+  /* .suite4 {
     margin: -40px 0 0 138px;
-  }
+  } */
 
 }
 
@@ -776,6 +773,7 @@ h6 {
   flex-direction: column;
   align-items: center;
   max-width: 200px;
+  cursor: pointer;
 }
 
 
