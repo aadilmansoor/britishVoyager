@@ -91,6 +91,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .main-product .img-wrap img {
