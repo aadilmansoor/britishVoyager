@@ -319,6 +319,10 @@ h6 {
 
 @media screen and (max-width: 800px) {
 
+  .split {
+    margin-top: 144px;
+  }
+
   .circle-line {
     width: 720px;
     height: 630px;
@@ -356,6 +360,10 @@ h6 {
 }
 
 @media screen and (max-width: 720px) {
+
+  .split {
+    margin-top: 130px;
+  }
 
   .circle-line {
     width: 648px;
@@ -395,6 +403,10 @@ h6 {
 
 @media screen and (max-width: 650px) {
 
+  .split {
+    margin-top: 117px;
+  }
+
   .circle-line {
     width: 583px;
     height: 510px;
@@ -432,6 +444,10 @@ h6 {
 }
 
 @media screen and (max-width: 590px) {
+
+  .split {
+    margin-top: 105px;
+  }
 
   .circle-line {
     width: 525px;
@@ -471,6 +487,10 @@ h6 {
 
 @media screen and (max-width: 520px) {
 
+  .split {
+    margin-top: 94px;
+  }
+
   .circle-line {
     width: 472px;
     height: 413px;
@@ -508,6 +528,10 @@ h6 {
 }
 
 @media screen and (max-width: 475px) {
+
+  .split {
+    margin-top: 85px;
+  }
 
   .circle-line {
     width: 425px;
@@ -547,6 +571,10 @@ h6 {
 
 @media screen and (max-width: 425px) {
 
+  .split {
+    margin-top: 76px;
+  }
+
   .circle-line {
     width: 382px;
     height: 335px;
@@ -584,6 +612,10 @@ h6 {
 }
 
 @media screen and (max-width: 380px) {
+
+  .split {
+    margin-top: 68px;
+  }
 
   .circle-line {
     width: 349px;

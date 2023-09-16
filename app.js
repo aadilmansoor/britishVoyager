@@ -137,7 +137,6 @@ app.get('/home', (req, res) => {
 app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
   const product = await Product.findOne({ id: parseInt(id) });
-  console.log(product);
   res.render('product', { product });
 });
 

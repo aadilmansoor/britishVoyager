@@ -13,7 +13,10 @@ body {
 /* start */
 
 .cart_mini {
-    height: 50px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 78px;
+    height: 60px;
     background: linear-gradient(to right, #ED1C24, #25174b);
     /* padding: 0; */
     padding: 0px 10%;
@@ -23,7 +26,9 @@ body {
 }
 
 .cart_mini .mini-cartImg {
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
     background-color: aliceblue;
 }
 
@@ -34,6 +39,16 @@ body {
 
 .cart_mini .mini_align span {
     margin-left: 20px;
+}
+
+.cart_mini .mini_align .img_box{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+}
+
+.cart_mini .mini_align .img_box img{
+    object-fit: contain;
 }
 
 .cart_mini .dropdown {
