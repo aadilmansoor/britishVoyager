@@ -218,15 +218,15 @@ body {
 }
 
 .main-product .product-right .color-selector .color-black {
-    background-color: #2D3238;
+    background-color: black;
 }
 
-.main-product .product-right .color-selector .color-white {
-    background-color: #D6D5D0;
+.main-product .product-right .color-selector .color-darkgray {
+    background-color: darkgray;
 }
 
-.main-product .product-right .color-selector .color-pink {
-    background-color: #AA5E70;
+.main-product .product-right .color-selector .color-silver {
+    background-color: silver;
 }
 
 .main-product .product-right .color-selector .color-orange {
@@ -238,6 +238,11 @@ body {
     background-color: #FFFFFF;
     border-width: 1px;
     border-radius: 2px;
+}
+
+.main-product .product-right .size-button .selected{
+    background-color: black;
+    color: white;
 }
 
 .main-product .product-right .size-para {
