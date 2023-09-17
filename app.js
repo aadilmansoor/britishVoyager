@@ -213,6 +213,10 @@ app.get('/checkout', async (req,res) => {
   res.render('checkout')
 })
 
+app.get('/success', async (req,res) => {
+  res.render('success')
+})
+
 app.post('/create-payment', (req, res) => {
   const createPaymentJson = {
     intent: 'sale',

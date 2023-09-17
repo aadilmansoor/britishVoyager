@@ -12,11 +12,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/success.css">
 </head>
 <body>
     <%- include('partials/navbar') %>
-    <h1>Sucess</h1>
+    <div id="loader" class="w-100 justify-content-center align-items-center">
+      <img src="images/Spinner-1s-204px.gif" alt="">
+    </div>
+      <div id="page_content" style="display: none;">
+        <div class="to_home"><a href="/home">&lt; Back to home page</a></div>
+        <div class="w-100 d-flex justify-content-center"><img src="images/tick.gif" alt=""></div>
+        <p class="confirmed">Your order has been confirmed.</p>
+      </div>
     <%- include('partials/footer') %>
 
 </body>
+<script>
+  const loader = document.getElementById('loader');
+  const content = document.getElementById('page_content');
+  const displayContent = () => {
+    setTimeout(() => { loader.style.display = "none",
+    content.style.display = "block"},2000)
+  }
+
+  window.onload = displayContent;
+
+</script>
 </html>
