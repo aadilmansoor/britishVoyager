@@ -95,7 +95,7 @@
         </div>
         <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO
           CART</button>
-        <button class="btn-buynow btn-cart d-block">BUY NOW</button>
+        <button onclick="checkoutto('<%= product.id%>')" class="btn-buynow btn-cart d-block">BUY NOW</button>
         <p class="mt-5 product-desc"><%=product.desc%></p>
         <div class="prod-desc-properties-main">
           <div class="prod-desc-properties">
@@ -421,11 +421,12 @@
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, // Include your JWT token
           },
-          body: JSON.stringify({ productId, size, token }),
+          body: JSON.stringify({ productId, size, token}),
         });
         if (response.ok) {
           alert('Product added to cart');
           // You can perform additional actions, like updating the cart icon
+          getCart(token);
         } else {
           alert('Failed to add product to cart');
         }
@@ -465,6 +466,9 @@ function imageSelector(imageName, productId) {
     mainImage.src = imagePath;
 }
 
+const checkoutto = (id) => {
+  window.location.href = `/checkout/${id}`
+}
 
 </script>
 

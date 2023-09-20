@@ -55,6 +55,38 @@ function authenticateToken(req, res, next) {
   });
 }
 
+// Function to get product details for a single item in the cart
+async function getProductDetails(productId) {
+  try {
+    // Query the products collection to get product details by product ID
+    const product = await Product.findById(productId);
+
+    return product;
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+    throw error;
+  }
+}
+
+// Function to get product details for items in the user's cart
+async function getCartDetails(cart) {
+  const cartDetails = [];
+
+  for (const cartItem of cart) {
+    const productDetails = await getProductDetails(cartItem.product);
+    if (productDetails) {
+      cartDetails.push({
+        product: productDetails,
+        quantity: cartItem.quantity,
+        size: cartItem.size,
+      });
+    }
+  }
+
+  return cartDetails;
+}
+
+
 //redirect to login or dashboard
 app.get('/', (req, res) => {
   res.redirect('home');
@@ -202,16 +234,126 @@ app.get('/get-cart', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.json({ cart: user.cart });
+    // Get cart details with product information
+    const cartDetails = await getCartDetails(user.cart);
+
+    res.json({ cart: cartDetails });
   } catch (error) {
-    console.error('Error fetching cart data:', error);
+    console.error('Error fetching cart details:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
+// Server-side route to retrieve cart data and generate cart HTML
+app.get('/get-cart-html', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  try {
+    // Find the user by their email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const userF = user.cart[0].product;
+
+    // Get cart details with product information
+    const cartDetails = await getCartDetails(user.cart);
+
+    if (cartDetails.length === 0) {
+      // Return a message indicating that the cart is empty
+      return res.json({ message: 'Cart is empty' });
+    }
+
+    // Generate HTML for the cart items
+    const cartItemHtml = cartDetails.map(item => `
+      <tr>
+        <td scope="row" colspan="4">${item.product.name} - ${item.size} × ${item.quantity}</td>
+        <td colspan="1">${item.product.price}</td>
+      </tr>
+    `).join('');
+
+    // Calculate the total price
+    const total = cartDetails.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+    // Send the cart item HTML and total as a response
+    res.json({ cartHtml: cartItemHtml, total });
+  } catch (error) {
+    console.error('Error fetching cart details:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 app.get('/checkout', async (req,res) => {
-  res.render('checkout')
+  const productName = "";
+  const productPrice = "";
+  res.render('checkout', {productName, productPrice})
 })
+
+app.get('/checkout/:id', async (req,res) => {
+  const id = req.params.id;
+  const product = await Product.findOne({ id: parseInt(id) });
+  productName = product.name;
+  productPrice = product.price;
+  console.log(productPrice);
+  res.render('checkout', {productName, productPrice})
+})
+
+// Handle the form submission for adding an address
+app.post('/add-address', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  try {
+    // Find the user by their email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract address data from the form submission
+    const {
+      first_name,
+      last_name,
+      country,
+      street_address_1,
+      street_address_2,
+      town_city,
+      phone_number,
+      email,
+    } = req.body;
+
+    // Create an address object
+    const address = {
+      first_name,
+      last_name,
+      country,
+      street_address_1,
+      street_address_2,
+      town_city,
+      phone_number,
+      email,
+    };
+
+
+    // Update the user's address in the database
+    user.addresses.push(address);
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).send('Address added successfully');
+  } catch (error) {
+    console.error('Error adding address:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 app.get('/success', async (req,res) => {
   res.render('success')

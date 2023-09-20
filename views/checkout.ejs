@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
     <title>British Voyager</title>
@@ -21,19 +20,17 @@
         <div class="checkout-main">
             <div class="delivery-address">
                 <h3 class="mb-3">Delivery Address</h3>
-                <form action="">
+                <form id="address-form" action="/add-address" method="post">
 
                     <label for="first_name">First Name:</label>
-                    <input type="text" id="first_name" name="first_name" placeholder="eg Abdu" required>
+                    <input type="text" id="first_name"  name="first_name" placeholder="eg Abdu" required>
 
                     <label for="last_name">Last Name:</label>
                     <input type="text" id="last_name" name="last_name" placeholder="eg Abdu" required>
 
                     <label for="country">Country/Region:</label>
                     <select class="mb-3" id="country" name="country" required>
-                        <option value="USA">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="CA">Canada</option>
+                        <option value="Kuwait">Kuwait</option>
                         <!-- Add more countries as needed -->
                     </select>
 
@@ -52,7 +49,7 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="email" required>
 
-                    <input class="w-50 button" type="submit" value="Submit">
+                    <input  class="w-50 button" type="submit" value="Submit">
                 </form>
 
 
@@ -71,24 +68,13 @@
 
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-cart">
                             <tr>
-                                <td scope="row" colspan="4">COODLE PLUS ROCKET 01 - BLUE × 1</td>
-                                <td colspan="1">KD 2.999</td>
-
-
-                            </tr>
-                            <tr>
-                                <td scope="row" colspan="4">COODLE PLUS ROCKET 01 - BLUE × 1</td>
-
-                                <td>KD 2.999</td>
-
-                            </tr>
-                            <tr>
-                                <th scope="row" colspan="4">Subtotal</th>
-
-                                <th>KD 2.999</th>
-
+                                <td scope="row" colspan="4">
+                                    <% productName%> × 1
+                                </td>
+                                <td colspan="1">KD <%= productPrice %>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -103,27 +89,119 @@
                     </div>
                     <div class="d-flex justify-content-between mt-3 mb-3">
                         <p class="fw-bolder" style="font-size: 16px;">Total</p>
-                        <p class="fw-bolder" style="margin-right: 100px;">KD 15.900</p>
+                        <p class="fw-bolder" id="total" style="margin-right: 100px;">KD 15.900</p>
                     </div>
                     <div class="row mb-3" style="row-gap: 10px;">
-                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
-                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
-                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
-                        <div class="col-lg-4"> <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i class="fa-regular fa-credit-card"></i></p></div>
+                        <div class="col-lg-4">
+                            <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
+                                    class="fa-regular fa-credit-card"></i></p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
+                                    class="fa-regular fa-credit-card"></i></p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
+                                    class="fa-regular fa-credit-card"></i></p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
+                                    class="fa-regular fa-credit-card"></i></p>
+                        </div>
                     </div>
                     <p>Returns & Exchange</p>
-                    <div class="d-flex gap-2 mb-2" > <input type="checkbox" name="" id=""> <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy *</p></div>
-                    <div class="d-flex gap-2" > <input type="checkbox" name="" id=""> <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy *</p></div>
+                    <div class="d-flex gap-2 mb-2"> <input type="checkbox" name="" id="">
+                        <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
+                            support your experience throughout this website, and for other purposes described in our
+                            Privacy Policy *</p>
+                    </div>
+                    <div class="d-flex gap-2"> <input type="checkbox" name="" id="">
+                        <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
+                            support your experience throughout this website, and for other purposes described in our
+                            Privacy Policy *</p>
+                    </div>
 
                     <form action="/create-payment" method="post">
                         <button class="btn btn-primary place-order p-2"> Place Order</button>
                     </form>
-                   
+
                 </div>
             </div>
         </div>
         <%- include('partials/footer') %>
 
 </body>
+
+<script>
+
+const token = getCookie('token');
+fetch('/get-cart-html', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}`
+  },
+})
+  .then(response => response.json())
+  .then(data => {
+    const cartItemsContainer = document.getElementById('table-cart');
+    const total = document.getElementById('total');
+    total.innerHTML = `KD ${data.total}`
+    if (data.cartHtml) {
+      // Update the cart items HTML
+      cartItemsContainer.innerHTML = data.cartHtml;
+      // Display the total
+    } else {
+      // Cart is empty
+      cartItemsContainer.innerHTML = '<p>Cart is empty</p>';
+    }
+  })
+  .catch(error => {
+    // Handle the error, e.g., display an error message
+  });
+
+
+// Assuming you have an HTML form with the id "addressForm"
+const addressForm = document.getElementById('address-form');
+
+addressForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Serialize form data into a JavaScript object
+  const formData = new FormData(addressForm);
+  const formDataJSON = {};
+
+  formData.forEach((value, key) => {
+    formDataJSON[key] = value;
+  });
+
+  try {
+    const token = getCookie('token');
+    console.log(token);
+
+    // Send the JSON data to the server
+    const response = await fetch('/add-address', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(formDataJSON), // Send the form data as JSON
+    });
+
+    if (response.status === 200) {
+      // Address added successfully
+      alert("address added successfully")
+      // You can handle the success case here (e.g., show a success message).
+    } else {
+      // Handle other status codes (e.g., error messages from the server).
+    }
+  } catch (error) {
+    // Handle any network or other errors
+    console.error('Error adding address:', error);
+  }
+});
+
+
+</script>
 
 </html>
