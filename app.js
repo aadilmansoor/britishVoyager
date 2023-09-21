@@ -288,9 +288,7 @@ app.get('/get-cart-html', authenticateToken, async (req, res) => {
 
 
 app.get('/checkout', async (req,res) => {
-  const productName = "";
-  const productPrice = "";
-  res.render('checkout', {productName, productPrice})
+  res.render('checkout')
 })
 
 app.get('/checkout/:id', async (req,res) => {
@@ -298,8 +296,8 @@ app.get('/checkout/:id', async (req,res) => {
   const product = await Product.findOne({ id: parseInt(id) });
   productName = product.name;
   productPrice = product.price;
-  console.log(productPrice);
-  res.render('checkout', {productName, productPrice})
+  console.log(productName);
+  res.render('checkout2', {productName, productPrice})
 })
 
 // Handle the form submission for adding an address

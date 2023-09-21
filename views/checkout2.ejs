@@ -69,7 +69,13 @@
                             </tr>
                         </thead>
                         <tbody id="table-cart">
-
+                            <tr>
+                                <td scope="row" colspan="4">
+                                    <%= productName%> × 1
+                                </td>
+                                <td colspan="1">KD <%= productPrice %>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <hr class="m-0">
@@ -83,7 +89,7 @@
                     </div>
                     <div class="d-flex justify-content-between mt-3 mb-3">
                         <p class="fw-bolder" style="font-size: 16px;">Total</p>
-                        <p class="fw-bolder" id="total" style="margin-right: 100px;"></p>
+                        <p class="fw-bolder" id="total" style="margin-right: 100px;">KD <%= productPrice %></p>
                     </div>
                     <div class="row mb-3" style="row-gap: 10px;">
                         <div class="col-lg-4">
@@ -127,31 +133,6 @@
 <script>
 
 const token = getCookie('token');
-fetch('/get-cart-html', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Bearer ${token}`
-  },
-})
-  .then(response => response.json())
-  .then(data => {
-    const cartItemsContainer = document.getElementById('table-cart');
-    const total = document.getElementById('total');
-    total.innerHTML = `KD ${data.total}`
-    if (data.cartHtml) {
-      // Update the cart items HTML
-      cartItemsContainer.innerHTML = data.cartHtml;
-      // Display the total
-    } else {
-      // Cart is empty
-      cartItemsContainer.innerHTML = '<p>Cart is empty</p>';
-    }
-  })
-  .catch(error => {
-    // Handle the error, e.g., display an error message
-  });
-
-
 // Assuming you have an HTML form with the id "addressForm"
 const addressForm = document.getElementById('address-form');
 
