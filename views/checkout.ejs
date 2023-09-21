@@ -93,6 +93,10 @@
                     </div>
                     <div class="row mb-3" style="row-gap: 10px;">
                         <div class="col-lg-4">
+                            <p class="px-2 py-3 m-0 card-design bg-dark text-white" style="font-size: 10px;">Cash on delivery <i
+                                    class="fa-regular fa-credit-card"></i></p>
+                        </div>
+                        <!-- <div class="col-lg-4">
                             <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
                                     class="fa-regular fa-credit-card"></i></p>
                         </div>
@@ -103,11 +107,7 @@
                         <div class="col-lg-4">
                             <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
                                     class="fa-regular fa-credit-card"></i></p>
-                        </div>
-                        <div class="col-lg-4">
-                            <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
-                                    class="fa-regular fa-credit-card"></i></p>
-                        </div>
+                        </div> -->
                     </div>
                     <p>Returns & Exchange</p>
                     <div class="d-flex gap-2 mb-2"> <input type="checkbox" name="" id="">
@@ -121,9 +121,7 @@
                             Privacy Policy *</p>
                     </div>
 
-                    <form action="/create-payment" method="post">
-                        <button class="btn btn-primary place-order p-2"> Place Order</button>
-                    </form>
+                        <button onclick="success()" class="btn btn-primary place-order p-2"> Place Order</button>
 
                 </div>
             </div>
@@ -200,6 +198,38 @@ addressForm.addEventListener('submit', async (e) => {
     console.error('Error adding address:', error);
   }
 });
+
+const success = () => {
+  // Make an HTTP GET request to the server to fetch the user's address
+fetch('/get-user-address', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}` // Include your JWT token here
+  },
+})
+  .then(response => {
+    if (response.ok) {
+      return response.json(); // Parse the response as JSON
+    } else {
+      throw new Error('Failed to fetch user address');
+    }
+  })
+  .then(data => {
+    if (data.addresses && data.addresses.length > 0) {
+      // User has at least one address
+      window.location.href = '/success'
+      console.log('User has at least one address:', data.addresses);
+    } else {
+      // User does not have any addresses
+      alert('Please add address')
+      console.log('User does not have any addresses');
+    }
+  })
+  .catch(error => {
+    // Handle errors, e.g., display an error message
+    console.error('Error:', error);
+  });
+}
 
 
 </script>

@@ -354,6 +354,35 @@ app.post('/add-address', authenticateToken, async (req, res) => {
   }
 });
 
+// Define a route to get user's address
+app.get('/get-user-address', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  try {
+    // Find the user by their email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the user has addresses
+    if (user.addresses && user.addresses.length > 0) {
+      // Send the user's addresses as a JSON response
+      res.json({ addresses: user.addresses });
+    } else {
+      // Send a message indicating that there are no addresses
+      res.json({ message: 'User does not have any addresses' });
+    }
+  } catch (error) {
+    console.error('Error fetching user address:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 app.get('/success', async (req,res) => {
   res.render('success')

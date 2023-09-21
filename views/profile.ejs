@@ -13,19 +13,21 @@
 </head>
 <body>
     <%- include('partials/navbar') %>
-    <div class="profile-nav">
+    <!-- <div class="profile-nav">
         <ul class="profile-options">
             <li class="active">Orders</li>
             <li>Addresses</li>
             <li>Account</li>
             <li>Logout</li>
         </ul>
-    </div>
+    </div> -->
     <div class="orders">
         <div class="no-orders">
             <p class="O-order">0 Orders</p>
             <p class="not-placed">You have not placed any orders yet.</p>
-            <button class="shopping">START SHOPPING</button>
+            <form action="/home" method="get"
+            ><button class="shopping">START SHOPPING</button></form
+               >
         </div>
     </div>
     <%- include('partials/footer') %>
