@@ -2,101 +2,100 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/checkout.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
-    <title>British Voyager</title>
-    <script src="https://kit.fontawesome.com/99a73375c2.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/checkout.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
+  <title>British Voyager</title>
+  <script src="https://kit.fontawesome.com/99a73375c2.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <%- include('partials/navbar') %>
-        <div class="checkout-main">
-            <div class="delivery-address">
-                <h3 class="mb-3">Delivery Address</h3>
-                <form id="address-form" action="/add-address" method="post">
+  <%- include('partials/navbar') %>
+    <div class="checkout-main">
+      <div class="delivery-address">
+        <h3 class="mb-3">Delivery Address</h3>
+        <form id="address-form" action="/add-address" method="post">
 
-                    <label for="first_name">First Name:</label>
-                    <input type="text" id="first_name"  name="first_name" placeholder="eg Abdu" required>
+          <label for="first_name">First Name:</label>
+          <input type="text" id="first_name" name="first_name" placeholder="eg Abdu" required>
 
-                    <label for="last_name">Last Name:</label>
-                    <input type="text" id="last_name" name="last_name" placeholder="eg Abdu" required>
+          <label for="last_name">Last Name:</label>
+          <input type="text" id="last_name" name="last_name" placeholder="eg Abdu" required>
 
-                    <label for="country">Country/Region:</label>
-                    <select class="mb-3" id="country" name="country" required>
-                        <option value="Kuwait">Kuwait</option>
-                        <!-- Add more countries as needed -->
-                    </select>
+          <label for="country">Country/Region:</label>
+          <select class="mb-3" id="country" name="country" required>
+            <option value="Kuwait">Kuwait</option>
+            <!-- Add more countries as needed -->
+          </select>
 
-                    <label for="street_address">Street Address:</label>
-                    <input type="text" id="street_address_1" name="street_address_1" placeholder="Street Address Line 1"
-                        required>
-                    <input type="text" id="street_address_2" name="street_address_2"
-                        placeholder="Street Address Line 2">
+          <label for="street_address">Street Address:</label>
+          <input type="text" id="street_address_1" name="street_address_1" placeholder="Street Address Line 1" required>
+          <input type="text" id="street_address_2" name="street_address_2" placeholder="Street Address Line 2">
 
-                    <label for="town_city">Town/City:</label>
-                    <input type="text" id="town_city" name="town_city" placeholder="town" required>
+          <label for="town_city">Town/City:</label>
+          <input type="text" id="town_city" name="town_city" placeholder="town" required>
 
-                    <label for="phone_number">Phone Number:</label>
-                    <input type="tel" id="phone_number" name="phone_number" placeholder="eg Phone" required>
+          <label for="phone_number">Phone Number:</label>
+          <input type="tel" id="phone_number" name="phone_number" placeholder="eg Phone" required>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="email" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="email" required>
 
-                    <input  class="w-50 button" type="submit" value="Submit">
-                </form>
+          <input class="w-50 button" type="submit" value="Submit">
+        </form>
 
 
 
 
+      </div>
+      <div class="checkout-cart">
+        <div class="cart-contentsmain">
+          <h3 class="mb-4">Your order</h3>
+          <table class="table mb-0">
+            <thead>
+              <tr>
+
+                <th scope="col" colspan="4">Product</th>
+                <th scope="col">Total</th>
+
+              </tr>
+            </thead>
+            <tbody id="table-cart">
+              <tr>
+                <td scope="row" colspan="4">
+                  <%= productName%> × 1
+                </td>
+                <td colspan="1">KD <%= productPrice %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr class="m-0">
+          <div class="coupon-cart mt-3">
+            <div>
+              <p class="fw-bold" style="font-size: 14px;"> Coupon Code</p>
             </div>
-            <div class="checkout-cart">
-                <div class="cart-contentsmain">
-                    <h3 class="mb-4">Your order</h3>
-                    <table class="table mb-0">
-                        <thead>
-                            <tr>
-
-                                <th scope="col" colspan="4">Product</th>
-                                <th scope="col">Total</th>
-
-                            </tr>
-                        </thead>
-                        <tbody id="table-cart">
-                            <tr>
-                                <td scope="row" colspan="4">
-                                    <%= productName%> × 1
-                                </td>
-                                <td colspan="1">KD <%= productPrice %>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr class="m-0">
-                    <div class="coupon-cart mt-3">
-                        <div>
-                            <p class="fw-bold" style="font-size: 14px;"> Coupon Code</p>
-                        </div>
-                        <div class="coupon-buttnlayout"> <input type="text" placeholder="coupon code">
-                            <button class="btn btn-danger">Apply Coupon</button>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3 mb-3">
-                        <p class="fw-bolder" style="font-size: 16px;">Total</p>
-                        <p class="fw-bolder" id="total" style="margin-right: 100px;">KD <%= productPrice %></p>
-                    </div>
-                    <div class="row mb-3" style="row-gap: 10px;">
-                        <div class="col-lg-4">
-                            <p class="px-2 py-3 m-0 card-design bg-dark text-white" style="font-size: 10px;">Cash on delivery <i
-                                    class="fa-regular fa-credit-card"></i></p>
-                        </div>
-                        <!-- <div class="col-lg-4">
+            <div class="coupon-buttnlayout"> <input type="text" placeholder="coupon code">
+              <button class="btn btn-danger">Apply Coupon</button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-3 mb-3">
+            <p class="fw-bolder" style="font-size: 16px;">Total</p>
+            <p class="fw-bolder" id="total" style="margin-right: 100px;">KD <%= productPrice %>
+            </p>
+          </div>
+          <div class="row mb-3" style="row-gap: 10px;">
+            <div class="col-lg-4">
+              <p class="px-2 py-3 m-0 card-design bg-dark text-white" style="font-size: 10px;">Cash on delivery <i
+                  class="fa-regular fa-credit-card"></i></p>
+            </div>
+            <!-- <div class="col-lg-4">
                             <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
                                     class="fa-regular fa-credit-card"></i></p>
                         </div>
@@ -108,103 +107,128 @@
                             <p class="px-2 py-3 m-0 card-design" style="font-size: 10px;">Cash on delivery <i
                                     class="fa-regular fa-credit-card"></i></p>
                         </div> -->
-                    </div>
-                    <p>Returns & Exchange</p>
-                    <div class="d-flex gap-2 mb-2"> <input type="checkbox" name="" id="">
-                        <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
-                            support your experience throughout this website, and for other purposes described in our
-                            Privacy Policy *</p>
-                    </div>
-                    <div class="d-flex gap-2"> <input type="checkbox" name="" id="">
-                        <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
-                            support your experience throughout this website, and for other purposes described in our
-                            Privacy Policy *</p>
-                    </div>
+          </div>
+          <p>Returns & Exchange</p>
+          <div class="d-flex gap-2 mb-2"> <input type="checkbox" name="" id="">
+            <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
+              support your experience throughout this website, and for other purposes described in our
+              Privacy Policy *</p>
+          </div>
+          <div class="d-flex gap-2"> <input type="checkbox" name="" id="">
+            <p style="font-size:9px; margin: 0;">Your personal data will be used to process your order,
+              support your experience throughout this website, and for other purposes described in our
+              Privacy Policy *</p>
+          </div>
 
-                        <button onclick="success()" class="btn btn-primary place-order p-2"> Place Order</button>
+          <button onclick="success()" class="btn btn-primary place-order p-2"> Place Order</button>
 
-                </div>
-            </div>
         </div>
-        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
 
 </body>
 
 <script>
 
-const token = getCookie('token');
-// Assuming you have an HTML form with the id "addressForm"
-const addressForm = document.getElementById('address-form');
+  const token = getCookie('token');
+  // Assuming you have an HTML form with the id "addressForm"
+  const addressForm = document.getElementById('address-form');
 
-addressForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  addressForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  // Serialize form data into a JavaScript object
-  const formData = new FormData(addressForm);
-  const formDataJSON = {};
+    // Serialize form data into a JavaScript object
+    const formData = new FormData(addressForm);
+    const formDataJSON = {};
 
-  formData.forEach((value, key) => {
-    formDataJSON[key] = value;
-  });
-
-  try {
-    const token = getCookie('token');
-    console.log(token);
-
-    // Send the JSON data to the server
-    const response = await fetch('/add-address', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(formDataJSON), // Send the form data as JSON
+    formData.forEach((value, key) => {
+      formDataJSON[key] = value;
     });
 
-    if (response.status === 200) {
-      // Address added successfully
-      alert("address added successfully")
-      // You can handle the success case here (e.g., show a success message).
-    } else {
-      // Handle other status codes (e.g., error messages from the server).
-    }
-  } catch (error) {
-    // Handle any network or other errors
-    console.error('Error adding address:', error);
-  }
-});
+    try {
+      const token = getCookie('token');
+      console.log(token);
 
-const success = () => {
-  // Make an HTTP GET request to the server to fetch the user's address
-fetch('/get-user-address', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Bearer ${token}` // Include your JWT token here
-  },
-})
-  .then(response => {
-    if (response.ok) {
-      return response.json(); // Parse the response as JSON
-    } else {
-      throw new Error('Failed to fetch user address');
+      // Send the JSON data to the server
+      const response = await fetch('/add-address', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(formDataJSON), // Send the form data as JSON
+      });
+
+      if (response.status === 200) {
+        // Address added successfully
+        alert("address added successfully")
+        // You can handle the success case here (e.g., show a success message).
+      } else {
+        // Handle other status codes (e.g., error messages from the server).
+      }
+    } catch (error) {
+      // Handle any network or other errors
+      console.error('Error adding address:', error);
     }
-  })
-  .then(data => {
-    if (data.addresses && data.addresses.length > 0) {
-      // User has at least one address
-      window.location.href = '/success'
-      console.log('User has at least one address:', data.addresses);
-    } else {
-      // User does not have any addresses
-      alert('Please add address')
-      console.log('User does not have any addresses');
-    }
-  })
-  .catch(error => {
-    // Handle errors, e.g., display an error message
-    console.error('Error:', error);
   });
-}
+
+  const success = () => {
+  // Make an HTTP GET request to the server to fetch the user's address
+  fetch('/get-user-address', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}` // Include your JWT token here
+    },
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json(); // Parse the response as JSON
+      } else {
+        throw new Error('Failed to fetch user address');
+      }
+    })
+    .then(data => {
+      if (data.addresses && data.addresses.length > 0) {
+        // User has at least one address
+        const recipientEmail = 'recipient@example.com'; // Replace with the actual recipient's email
+        const subject = 'Order Confirmation';
+        const message = 'Thank you for your order.';
+
+        // Send the email
+        fetch('/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipientEmail, subject, message }),
+        })
+          .then(response => {
+            if (response.ok) {
+              alert('Order placed successfully, and an email has been sent.');
+            } else {
+              alert('Failed to place the order or send the email.');
+            }
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+            alert('An error occurred while sending the email.');
+          })
+          .finally(() => {
+            window.location.href = '/success';
+          });
+      } else {
+        // User does not have any addresses
+        alert('Please add an address');
+        console.log('User does not have any addresses');
+      }
+    })
+    .catch(error => {
+      // Handle errors, e.g., display an error message
+      console.error('Error:', error);
+    });
+};
+
 
 
 </script>

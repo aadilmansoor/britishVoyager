@@ -195,36 +195,59 @@ addressForm.addEventListener('submit', async (e) => {
 
 const success = () => {
   // Make an HTTP GET request to the server to fetch the user's address
-fetch('/get-user-address', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Bearer ${token}` // Include your JWT token here
-  },
-})
-  .then(response => {
-    if (response.ok) {
-      return response.json(); // Parse the response as JSON
-    } else {
-      throw new Error('Failed to fetch user address');
-    }
+  fetch('/get-user-address', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}` // Include your JWT token here
+    },
   })
-  .then(data => {
-    if (data.addresses && data.addresses.length > 0) {
-      // User has at least one address
-      window.location.href = '/success'
-      console.log('User has at least one address:', data.addresses);
-    } else {
-      // User does not have any addresses
-      alert('Please add address')
-      console.log('User does not have any addresses');
-    }
-  })
-  .catch(error => {
-    // Handle errors, e.g., display an error message
-    console.error('Error:', error);
-  });
-}
+    .then(response => {
+      if (response.ok) {
+        return response.json(); // Parse the response as JSON
+      } else {
+        throw new Error('Failed to fetch user address');
+      }
+    })
+    .then(data => {
+      if (data.addresses && data.addresses.length > 0) {
+        // User has at least one address
+        const recipientEmail = 'shamilmansoor.s@gmail.com'; // Replace with the actual recipient's email
+        const subject = 'Order Confirmation';
+        const message = 'Thank you for your order.';
 
+        // Send the email
+        fetch('/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipientEmail, subject, message }),
+        })
+          .then(response => {
+            if (response.ok) {
+              alert('Order placed successfully, and an email has been sent.');
+            } else {
+              alert('Failed to send the email.');
+            }
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+            alert('An error occurred while sending the email.');
+          })
+          .finally(() => {
+            window.location.href = '/success';
+          });
+      } else {
+        // User does not have any addresses
+        alert('Please add an address');
+        console.log('User does not have any addresses');
+      }
+    })
+    .catch(error => {
+      // Handle errors, e.g., display an error message
+      console.error('Error:', error);
+    });
+};
 
 </script>
 

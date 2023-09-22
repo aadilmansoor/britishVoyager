@@ -1,13 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt'); // For password hashing
-const saltRounds = 10; // Salt rounds for bcrypt
+const saltRounds = process.env.SALTROUNDS; // Salt rounds for bcrypt
 const path = require('path');
 const mongoose = require('mongoose');
 const { connectDB, User, Product } = require('./db'); // Import the connectDB function
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const paypal = require('paypal-rest-sdk');
+const nodemailer = require('nodemailer');
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -21,6 +22,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // e.g., 'Gmail'
+  auth: {
+    user: 'britishvoyager@gmail.com',
+    pass: process.env.GMAIL_PASSWORD,
+  },
+});
 
 paypal.configure({
   mode: process.env.PAYPAL_MODE, // 'sandbox' or 'live'
@@ -441,6 +450,27 @@ app.get('/execute-payment', (req, res) => {
 app.get('/cancel-payment', (req, res) => {
   // Handle canceled payment
   res.render('cancel'); // Render cancel page
+});
+
+app.post('/send-email', (req, res) => {
+  const { recipientEmail, subject, message } = req.body;
+
+  const mailOptions = {
+    from: 'britishvoyager@gmail.com',
+    to: recipientEmail,
+    subject: subject,
+    text: message,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ success: false, error: 'Email sending failed' });
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).json({ success: true, message: 'Email sent successfully' });
+    }
+  });
 });
 
 
