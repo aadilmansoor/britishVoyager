@@ -266,7 +266,6 @@ app.get('/get-cart-html', authenticateToken, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    const userF = user.cart[0].product;
 
     // Get cart details with product information
     const cartDetails = await getCartDetails(user.cart);
@@ -539,6 +538,41 @@ app.get('/search', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+app.put('/clear-cart', async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'Authorization token not provided' });
+    }
+
+    // Verify and decode the token to get the user's email
+    const decodedToken = jwt.verify(token, secretKey);
+    const userEmail = decodedToken.email;
+
+    // Find the user by email
+    const user = await User.findOne({ email: userEmail });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Clear the user's cart by setting it to an empty array
+    user.cart = [];
+
+    // Save the updated user object
+    await user.save();
+
+    return res.json({ message: 'Cart cleared successfully', user });
+  } catch (error) {
+    console.error('Error clearing cart:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

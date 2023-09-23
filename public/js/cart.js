@@ -97,7 +97,13 @@ function getCart(token) {
                 cartItemsContainer.classList.add('container')
             } else {
                 cartItemsContainer.innerHTML = ""
-                data.cart.forEach(item => {
+                const no_of_items = document.getElementById('no_of_items');
+                data.cart.forEach((item, index) => {
+                    if(index === 0){
+                        no_of_items.innerHTML = "1 item";
+                    } else {
+                        no_of_items.innerHTML = `${index+1} items`;
+                    }
                     const cartItemDiv = document.createElement('div');
                     cartItemDiv.classList.add('product');
                     cartItemDiv.innerHTML = `

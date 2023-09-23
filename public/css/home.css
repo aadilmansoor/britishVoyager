@@ -181,9 +181,20 @@ h6 {
 
 .product-highlights {
   display: flex;
-  flex-wrap: wrap;
   gap: 70px;
   align-content: center;
+}
+
+@media  (max-width: 500px) {
+  .product-highlights{
+    gap:30px;
+  }
+}
+
+@media  (max-width:320px) {
+  .product-highlights{
+    gap:15px;
+  }
 }
 
 .highlights {
@@ -217,12 +228,6 @@ h6 {
   margin-bottom: 20px;
 }
 
-
-@media screen and (max-width: 424px) {
-  .product-highlights {
-    justify-content: center;
-  }
-}
 
 @media screen and (max-width: 650px) {
   .split {

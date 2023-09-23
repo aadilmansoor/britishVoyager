@@ -33,6 +33,18 @@
     width:75%;
     background-color: #F7F7F7;
 }
+
+@media screen and (max-width: 800px) {
+    .checkout-main{
+        flex-wrap: wrap-reverse;
+    }
+
+    .checkout-cart{
+        width: 100%;
+    }
+}
+
+
 .checkout-cart .table td {
   
     background-color: #F7F7F7;
