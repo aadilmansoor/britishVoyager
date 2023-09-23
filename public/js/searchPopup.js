@@ -16,5 +16,41 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     })
-    
+
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('keyup', () => {
+        const query = searchInput.value.trim();
+
+        if (query.length === 0) {
+            searchResults.innerHTML = ''; // Clear search results if the query is empty
+            return;
+        }
+
+        // Send an AJAX request to the server to fetch search results
+        fetch(`/search?q=${query}`)
+            .then((response) => response.json())
+            .then((data) => {
+                {
+                    displaySearchResults(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching search results:', error);
+            });
+    });
+
+    function displaySearchResults(results) {
+        // Clear previous search results
+        searchResults.innerHTML = '';
+
+        // Display the new search results
+        results.forEach((result) => {
+            const productElement = document.createElement('div');
+            productElement.innerHTML = result;
+            searchResults.appendChild(productElement);
+        });
+    }
+
 })
