@@ -1,5 +1,5 @@
-const productDetails = (page) => {
-    window.location.href = `/product/${page}`
+const productDetails = (id,color) => {
+    window.location.href = `/product/${id}?color=${color}`
 }
 
 const checkoutto = (id) => {

@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      color: {
+        type: String,
+        required: true,
+      },
     }],
     default: [],
   },
@@ -104,27 +108,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   }],
-  mainImage: {
-    type: String
-  },
-  image2: {
-    type: String
-  },
-  image3: {
-    type: String
-  },
-  image4: {
-    type: String
-  },
-  image5: {
-    type: String
-  },
-  image6: {
-    type: String
-  },
-  image7: {
-    type: String
-  },
   desc: {
     type: String
   },

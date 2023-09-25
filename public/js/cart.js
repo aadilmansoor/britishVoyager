@@ -98,6 +98,7 @@ function getCart(token) {
             } else {
                 cartItemsContainer.innerHTML = ""
                 const no_of_items = document.getElementById('no_of_items');
+                console.log(data.cart);
                 data.cart.forEach((item, index) => {
                     if(index === 0){
                         no_of_items.innerHTML = "1 item";
@@ -110,7 +111,7 @@ function getCart(token) {
                         <div class="product">
                             <div class="product-content">
                                 <div class="product-image">
-                                    <img src="/images/${item.product.id}/no_bg.png" alt="">
+                                    <img src="/images/${item.product.id}/${item.color}/no_bg.png" alt="">
                                 </div>
                                 <div class="product-details">
                                     <span class="product-name">${item.product.name}</span>

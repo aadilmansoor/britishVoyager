@@ -25,9 +25,8 @@
   <%- include('partials/navbar') %>
     <div class="cart_mini">
       <div class="mini_align">
-        <img src="/images/1/no_bg.png" alt="" class="mini-cartImg">
-        <p class="mini_para">British Voyager Ascend</p><span
-          class="mini_para ">KD 45000</span>
+        <img src="/images/1/black/no_bg.png" alt="" class="mini-cartImg">
+        <p class="mini_para">British Voyager Ascend</p><span class="mini_para ">KD 45000</span>
       </div>
       <div>
         <div class="dropdown">
@@ -51,19 +50,29 @@
 
     <div class="main-product">
       <div class="product-left">
-        <div class=" img-wrap">
-          <img onclick="imageSelector('<%=product.mainImage%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.mainImage%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image2%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image2%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image3%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image3%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image4%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image4%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image5%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image5%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image6%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image6%>_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.image7%>','<%=product.id%>')" src="/images/<%=product.id%>/<%=product.image7%>_sq.jpg" alt="">
+        <div class="img-wrap">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',1)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>1_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',2)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>3_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',3)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>2_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',4)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>4_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',5)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>5_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',6)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>6_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=product.id%>','<%=color%>',7)"
+            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>7_sq.jpg" alt="product-image">
         </div>
-        <div class=" main-image"><img id="main_img" src="/images/<%= product.id %>/<%=product.mainImage%>.jpg" alt="product image"></div>
+        <div class=" main-image"><img id="main_img" src="/images/<%=product.id%>/<%=color%>/<%= product.id %>1.jpg"
+            alt="product image"></div>
       </div>
       <div class="product-right">
-        <h3><%= product.name %></h3>
+        <h3>
+          <%= product.name %>
+        </h3>
         <span class="my-1">
           <img src="/images/review star.png" alt="">
           <img src="/images/review star.png" alt="">
@@ -76,10 +85,10 @@
         <span class="d-block mb-3 size-para">(inclusive all taxes) </span>
         <p>COLOR</p>
         <div class="color-selector mb-3">
-          <div class="color-black    color-circle"></div>
-          <div class="color-darkgray    color-circle"></div>
-          <div class="color-silver     color-circle"></div>
-          <div class="color-orange   color-circle"></div>
+          <div id="black" class="color-black color-circle" onclick="productto('<%=product.id%>','black')"></div>
+          <div id="darkgray" class="color-darkgray color-circle" onclick="productto('<%=product.id%>','darkgray')"></div>
+          <div id="silver" class="color-silver color-circle" onclick="productto('<%=product.id%>','silver')"></div>
+          <div id="powder" class="color-powder color-circle" onclick="productto('<%=product.id%>','powder')"></div>
 
         </div>
         <div class="d-flex justify-content-between size-para ">
@@ -96,7 +105,9 @@
         <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO
           CART</button>
         <button onclick="checkoutto('<%= product.id%>')" class="btn-buynow btn-cart d-block">BUY NOW</button>
-        <p class="mt-5 product-desc"><%=product.desc%></p>
+        <p class="mt-5 product-desc">
+          <%=product.desc%>
+        </p>
         <div class="prod-desc-properties-main">
           <div class="prod-desc-properties">
 
@@ -157,15 +168,17 @@
         </div>
         <div class="prod-dimension-size mt-4">
           <p class="prod-dimension-size-heading">Imported/Manufactured by</p>
-          <p class="prod-dimension-size-data-para">Imported/Manufactured by: Manufactured by Safari Industries (India) LtdAddress: 302-303, A Wing, The Qube, Sir Mathuradas Vasanji Rd, Marol, Andheri East, Mumbai, Maharashtra 400059Country of Origin: IndiaNet Quantity: 1</p>
+          <p class="prod-dimension-size-data-para">Imported/Manufactured by: Manufactured by Safari Industries (India)
+            LtdAddress: 302-303, A Wing, The Qube, Sir Mathuradas Vasanji Rd, Marol, Andheri East, Mumbai, Maharashtra
+            400059Country of Origin: IndiaNet Quantity: 1</p>
           <hr>
         </div>
         <div class="product-pincode">
           <p class="product-pincode-heading">Enter Delivery Pincode</p>
-          <div class="pincode-button">
+          <!-- <div class="pincode-button">
             <input class="pincode-input w-100" type="text" placeholder="Enter  Pincode">
             <button class="btn button"> check</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -409,6 +422,18 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Get the current URL
+    const currentUrl = window.location.href;
+
+    // Parse the URL to extract query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Access individual parameters by name
+    const color = urlParams.get('color');
+    
+    const colorButton = document.getElementById(`${color}`)
+    colorButton.classList.add('selected_color')
+
     const addToCartButton = document.getElementById('cart-button');
     const token = getCookie('token');
     addToCartButton.addEventListener('click', async () => {
@@ -421,7 +446,7 @@
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, // Include your JWT token
           },
-          body: JSON.stringify({ productId, size, token}),
+          body: JSON.stringify({ productId, size, token, color }),
         });
         if (response.ok) {
           alert('Product added to cart');
@@ -452,23 +477,27 @@
     });
   });
 
-function imageSelector(imageName, productId) {
-    console.log(`Clicked on image with mainImage: ${imageName} and productId: ${productId}`);
+  function imageSelector(productId, color, imageNumber) {
+    console.log(`Clicked on image with ImageNumber: ${imageNumber}, productId: ${productId}, color = ${color}`);
 
     // Check that mainImage is correctly defined as a reference to the img element
     const mainImage = document.getElementById('main_img'); // Replace 'mainImage' with the actual ID of your img element
 
     // Check the generated image path
-    const imagePath = `/images/${productId}/${imageName}.jpg`;
+    const imagePath = `/images/${productId}/${color}/${productId}${imageNumber}.jpg`;
     console.log(`Updating image source to: ${imagePath}`);
 
     // Update the src attribute
     mainImage.src = imagePath;
-}
+  }
 
-const checkoutto = (id) => {
-  window.location.href = `/checkout/${id}`
-}
+  const checkoutto = (id) => {
+    window.location.href = `/checkout/${id}`
+  }
+
+  const productto = (id, color) => {
+    window.location.href = `/product/${id}?color=${color}`
+  }
 
 </script>
 

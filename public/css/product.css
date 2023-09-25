@@ -233,6 +233,10 @@ body {
     cursor: pointer;
 }
 
+.main-product .product-right .color-circle.selected_color{
+    border: 3px solid rgb(77, 134, 232);
+}
+
 .main-product .product-right .color-selector {
     display: flex;
     gap: 10px;
@@ -243,15 +247,15 @@ body {
 }
 
 .main-product .product-right .color-selector .color-darkgray {
-    background-color: darkgray;
+    background-color: rgb(147, 146, 146);
 }
 
 .main-product .product-right .color-selector .color-silver {
     background-color: silver;
 }
 
-.main-product .product-right .color-selector .color-orange {
-    background-color: #E55F05;
+.main-product .product-right .color-selector .color-powder {
+    background-color: #BEA9A8;
 }
 
 .main-product .product-right .size-button .btn-size {
@@ -365,7 +369,7 @@ body {
 }
 
 @media screen and (max-width:453px) {
-    .main-product .img-wrap {
+    .main-product .img-wrap img{
         width: 50px;
         height: 50px;
     }
@@ -388,13 +392,27 @@ body {
 }
 
 @media screen and (max-width: 350px){
-    .main-product .img-wrap {
+    .main-product .img-wrap img{
         width: 40px;
         height: 40px;
     }
 
     #main_img {
         height: 340px;
+        width: 100%;
+        object-fit: contain;
+        box-shadow: none;
+    }
+}
+
+@media screen and (max-width: 305px){
+    .main-product .img-wrap img{
+        width: 35px;
+        height: 35px;
+    }
+
+    #main_img {
+        height: 305px;
         width: 100%;
         object-fit: contain;
         box-shadow: none;

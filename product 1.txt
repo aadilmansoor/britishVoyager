@@ -1,0 +1,20 @@
+product 1
+
+black:3 ✅
+darkgray:8,10
+silver:12
+powder:7,9
+
+product 2
+
+black:6
+darkgray:4
+silver:5
+powder:1 ✅
+
+product 3
+
+black:11
+darkgray:14
+silver:2 ✅
+powder:13

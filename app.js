@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const paypal = require('paypal-rest-sdk');
 const nodemailer = require('nodemailer');
+const { log } = require('console');
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -43,6 +44,10 @@ const secretKey = process.env.SECRET_KEY;
 // Function to generate a JWT token
 function generateToken(payload) {
   return jwt.sign(payload, secretKey, { expiresIn: '1h' });
+}
+
+function capitalizeFirstLetter(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
 // Middleware to authenticate requests using JWT
@@ -88,6 +93,7 @@ async function getCartDetails(cart) {
         product: productDetails,
         quantity: cartItem.quantity,
         size: cartItem.size,
+        color: cartItem.color
       });
     }
   }
@@ -177,8 +183,10 @@ app.get('/home', (req, res) => {
 //Render the product page
 app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
+  const color = req.query.color;
+  console.log(color);
   const product = await Product.findOne({ id: parseInt(id) });
-  res.render('product', { product });
+  res.render('product', { product, color });
 });
 
 app.get('/profile', (req, res) => {
@@ -187,7 +195,7 @@ app.get('/profile', (req, res) => {
 
 // Add a product to the user's cart
 app.post('/add-to-cart', async (req, res) => {
-  const { productId, size, token } = req.body; // Assuming you're sending the product ID in the request body 
+  const { productId, size, token, color } = req.body; // Assuming you're sending the product ID in the request body 
   const decodedToken = jwt.verify(token, secretKey);
 
 
@@ -204,7 +212,7 @@ app.post('/add-to-cart', async (req, res) => {
 
     // Check if the product and size combination is already in the user's cart
     const existingCartItem = user.cart.find(
-      (item) => String(item.product) === String(product._id) && item.size === size
+      (item) => String(item.product) === String(product._id) && item.size === size && item.color === color
     );
 
     if (existingCartItem) {
@@ -216,6 +224,7 @@ app.post('/add-to-cart', async (req, res) => {
         product: product._id, // Store the product's ObjectId
         quantity: 1,
         size,
+        color: capitalizeFirstLetter(color)
       });
     }
 
@@ -228,6 +237,7 @@ app.post('/add-to-cart', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 app.get('/get-cart', authenticateToken, async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -245,7 +255,6 @@ app.get('/get-cart', authenticateToken, async (req, res) => {
 
     // Get cart details with product information
     const cartDetails = await getCartDetails(user.cart);
-
     res.json({ cart: cartDetails });
   } catch (error) {
     console.error('Error fetching cart details:', error);
@@ -278,7 +287,7 @@ app.get('/get-cart-html', authenticateToken, async (req, res) => {
     // Generate HTML for the cart items
     const cartItemHtml = cartDetails.map(item => `
       <tr>
-        <td scope="row" colspan="4">${item.product.name} - ${item.size} × ${item.quantity}</td>
+        <td scope="row" colspan="4">${item.product.name} ${item.color} - ${item.size} × ${item.quantity}</td>
         <td colspan="1">${item.product.price}</td>
       </tr>
     `).join('');
@@ -494,7 +503,7 @@ app.get('/search', async (req, res) => {
       <div role="button" class="search_result cursor-pointer" onclick="productDetails(${result.id})">
       <div class="image_details">
           <div class="product-image">
-              <img src="/images/${result.id}/no_bg.png" alt="">
+              <img src="/images/${result.id}/black/no_bg.png" alt="">
           </div>
           <div class="product-details">
               <span class="product_name">
