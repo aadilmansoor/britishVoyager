@@ -122,6 +122,11 @@
     font-weight: 500;
 }
 
+.no_style{
+    border: none;
+    background-color: white;
+}
+
 
 .cart .cart-products .product .price-quantity .quantity .add {
     color: #1A1A1A;

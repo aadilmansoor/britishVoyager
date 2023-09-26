@@ -313,7 +313,6 @@ app.get('/checkout/:id', async (req, res) => {
   const product = await Product.findOne({ id: parseInt(id) });
   productName = product.name;
   productPrice = product.price;
-  console.log(productName);
   res.render('checkout2', { productName, productPrice })
 })
 
@@ -580,7 +579,85 @@ app.put('/clear-cart', async (req, res) => {
   }
 });
 
+// Define a route to update the quantity in MongoDB
+app.put('/updateQuantity/:productId', authenticateToken, bodyParser.json(), async (req, res) => {
+  const authHeader = req.headers.authorization;
 
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  const userEmail = decodedToken.email;
+  const productId = req.params.productId;
+  const newQuantity = parseInt(req.query.quantity, 10); // Get the new quantity from the query string
+
+  try {
+    // Update the cart quantity for the user
+    const user = await User.findOne({ email: userEmail });
+    const product = await Product.findOne({ id: productId });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const cartItem = user.cart.find(item => item.product.toString() === product._id.toString());
+
+
+    if (!cartItem) {
+      return res.status(404).json({ message: 'Product not found in user cart' });
+    }
+
+    cartItem.quantity = newQuantity;
+
+    await user.save();
+
+    res.json({ newQuantity: cartItem.quantity });
+  } catch (error) {
+    console.error('Error updating quantity:', error);
+    res.status(500).json({ error: 'Error updating quantity' });
+  }
+
+});
+
+// Define a route to delete a product from MongoDB
+app.delete('/deleteProduct/:productId', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const productId = req.params.productId;
+
+
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  const userEmail = decodedToken.email;
+
+  try {
+    // Find the user by ID
+    const user = await User.findOne({ email: userEmail });
+    const product = await Product.findOne({ id: productId });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the index of the product in the user's cart
+    const productIndex = user.cart.findIndex(item => item.product.toString() === product._id.toString(
+    ));
+
+    if (productIndex === -1) {
+      return res.status(404).json({ error: 'Product not found in the cart' });
+    }
+
+    // Remove the product from the user's cart
+    user.cart.splice(productIndex, 1);
+
+    // Save the updated user data
+    await user.save();
+
+    res.sendStatus(204); // No content (successful removal)
+  } catch (error) {
+    console.error('Error removing product from cart:', error);
+    res.status(500).json({ error: 'Error removing product from cart' });
+  }
+});
 
 
 app.listen(PORT, () => {

@@ -77,6 +77,99 @@ const checkout = () => {
     window.location.href = "/checkout"
 }
 
+function increase(button) {
+    // Find the parent product container
+    const token = getCookie('token')
+    const productContainer = button.closest('.product');
+
+    // Get the product ID and current quantity
+    const productId = productContainer.getAttribute('data-productid');
+    const quantityElement = productContainer.querySelector('.number');
+    let currentQuantity = parseInt(quantityElement.textContent, 10);
+
+    // Increase the quantity
+    currentQuantity++;
+    quantityElement.textContent = currentQuantity;
+
+    // Make an asynchronous request to update the quantity in MongoDB
+    fetch(`/updateQuantity/${productId}?quantity=${currentQuantity}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}` // Include your JWT token here
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response if needed
+        })
+        .catch(error => {
+            console.error('Error updating quantity:', error);
+        });
+}
+
+function decrease(button) {
+    // Find the parent product container
+    const token = getCookie('token')
+    const productContainer = button.closest('.product');
+
+    // Get the product ID and current quantity
+    const productId = productContainer.getAttribute('data-productid');
+    const quantityElement = productContainer.querySelector('.number');
+    let currentQuantity = parseInt(quantityElement.textContent, 10);
+
+    // Ensure the quantity doesn't go below 1
+    if (currentQuantity > 1) {
+        currentQuantity--;
+        quantityElement.textContent = currentQuantity;
+
+        // Make an asynchronous request to update the quantity in MongoDB
+        fetch(`/updateQuantity/${productId}?quantity=${currentQuantity}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}` // Include your JWT token here
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response if needed
+            })
+            .catch(error => {
+                console.error('Error updating quantity:', error);
+            });
+    }
+}
+
+// Event delegation for delete buttons
+function remove(button) {
+    const token = getCookie('token');
+    // Find the parent product container
+    const productContainer = button.closest('.product');
+
+    // Get the product ID
+    const productId = productContainer.getAttribute('data-productid');
+
+    // Make an asynchronous request to delete the product from MongoDB
+    fetch(`/deleteProduct/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}` // Include your JWT token here
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                // Remove the product container from the UI
+                productContainer.remove();
+            } else {
+                console.error('Error deleting product:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting product:', error);
+        });
+}
+
+
+
 function getCart(token) {
     // Fetch cart data from the server
     fetch('/get-cart', {
@@ -100,15 +193,15 @@ function getCart(token) {
                 const no_of_items = document.getElementById('no_of_items');
                 console.log(data.cart);
                 data.cart.forEach((item, index) => {
-                    if(index === 0){
+                    if (index === 0) {
                         no_of_items.innerHTML = "1 item";
                     } else {
-                        no_of_items.innerHTML = `${index+1} items`;
+                        no_of_items.innerHTML = `${index + 1} items`;
                     }
                     const cartItemDiv = document.createElement('div');
                     cartItemDiv.classList.add('product');
                     cartItemDiv.innerHTML = `
-                        <div class="product">
+                        <div class="product" data-productid="${item.product.id}">
                             <div class="product-content">
                                 <div class="product-image">
                                     <img src="/images/${item.product.id}/${item.color}/no_bg.png" alt="">
@@ -138,9 +231,9 @@ function getCart(token) {
                             <div class="price-quantity">
                                 <p class="price">KD 45000/-</p>
                                 <div class="quantity">
-                                    <span class="subtract">-</span><span class="number">${item.quantity}</span><span class="add">+</span>
+                                    <button class="no_style increase" onclick="decrease(this)"><span class="subtract">-</span></button><span class="number">${item.quantity}</span><button class="no_style decrease" onclick="increase(this)"><span class="add">+</span></button>
                                 </div>
-                                <div class="d-flex justify-content-center mt-2"><i class="fa-solid fa-trash"></i></div>
+                                <div class="d-flex justify-content-center mt-2"><button class="no_style delete" onclick="remove(this)"><i class="fa-solid fa-trash"></i></button></div>
                             </div>
                         </div>
      `;
@@ -151,4 +244,5 @@ function getCart(token) {
         .catch(error => {
             // Handle the error, e.g., display an error message
         });
+
 }
