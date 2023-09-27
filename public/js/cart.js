@@ -182,6 +182,7 @@ function getCart(token) {
         .then(data => {
             // Populate the cart items dynamically
             const cartItemsContainer = document.querySelector('.cart-products');
+            cartItemsContainer.innerHTML = ""
             if (data.cart.length === 0) {
                 // Cart is empty
                 const emptyCartMessage = document.createElement('p');
@@ -189,9 +190,7 @@ function getCart(token) {
                 cartItemsContainer.appendChild(emptyCartMessage);
                 cartItemsContainer.classList.add('container')
             } else {
-                cartItemsContainer.innerHTML = ""
                 const no_of_items = document.getElementById('no_of_items');
-                console.log(data.cart);
                 data.cart.forEach((item, index) => {
                     if (index === 0) {
                         no_of_items.innerHTML = "1 item";
