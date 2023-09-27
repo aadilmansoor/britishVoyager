@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt'); // For password hashing
-const saltRounds = process.env.SALTROUNDS; // Salt rounds for bcrypt
 const path = require('path');
 const mongoose = require('mongoose');
 const { connectDB, User, Product } = require('./db'); // Import the connectDB function
@@ -9,12 +8,11 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const paypal = require('paypal-rest-sdk');
 const nodemailer = require('nodemailer');
-const { log } = require('console');
-
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const saltRounds = 10; // Salt rounds for bcrypt
 
 // Call the connectDB function to establish the MongoDB connection
 connectDB();
