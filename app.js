@@ -210,7 +210,7 @@ app.post('/add-to-cart', async (req, res) => {
 
     // Check if the product and size combination is already in the user's cart
     const existingCartItem = user.cart.find(
-      (item) => String(item.product) === String(product._id) && item.size === size && item.color === color
+      (item) => String(item.product) === String(product._id) && item.size === size && item.color === capitalizeFirstLetter(color)
     );
 
     if (existingCartItem) {

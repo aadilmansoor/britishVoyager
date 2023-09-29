@@ -159,6 +159,7 @@ function remove(button) {
             if (response.ok) {
                 // Remove the product container from the UI
                 productContainer.remove();
+                getCart(token)
             } else {
                 console.error('Error deleting product:', response.statusText);
             }
@@ -185,10 +186,13 @@ function getCart(token) {
             cartItemsContainer.innerHTML = ""
             if (data.cart.length === 0) {
                 // Cart is empty
+                const no_of_items = document.getElementById('no_of_items');
+                no_of_items.innerHTML = "0 item";
                 const emptyCartMessage = document.createElement('p');
                 emptyCartMessage.textContent = 'Your cart is empty.';
                 cartItemsContainer.appendChild(emptyCartMessage);
-                cartItemsContainer.classList.add('container')
+                cartItemsContainer.classList.add('container');
+                emptyCartMessage.classList.add('text-dark');
             } else {
                 const no_of_items = document.getElementById('no_of_items');
                 data.cart.forEach((item, index) => {
