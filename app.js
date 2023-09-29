@@ -566,6 +566,7 @@ app.put('/clear-cart', async (req, res) => {
 
     // Clear the user's cart by setting it to an empty array
     user.cart = [];
+    user.orders += 1
 
     // Save the updated user object
     await user.save();
@@ -657,6 +658,42 @@ app.delete('/deleteProduct/:productId', authenticateToken, async (req, res) => {
   }
 });
 
+app.get('/get-orders', async (req, res) => {
+  try {
+
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+
+    if (!token) {
+      return res.status(401).json({ message: 'Authorization token not provided' });
+    }
+
+ 
+    const decodedToken = jwt.verify(token, secretKey);
+    const userEmail = decodedToken.email;
+
+    // Find the user by email
+    const user = await User.findOne({ email: userEmail });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    orders = user.orders;
+
+    if(orders === 0){
+      res.json({ orders: "0 order" });
+    } else if(orders === 1){
+      res.json({ orders: "1 order" });
+    } else {
+      res.json({ orders: `${orders} orders` });
+
+    }
+  } catch (error) {
+    console.error('Error accessing orders:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

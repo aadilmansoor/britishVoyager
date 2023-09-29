@@ -124,7 +124,18 @@
 
 <script>
 
-function udateCart(token) {
+window.addEventListener("pageshow", (event) => {
+  const historyTraversal =
+    event.persisted ||
+    (typeof window.performance != "undefined" &&
+      window.performance.navigation.type === 2);
+
+  if (historyTraversal) {
+    window.location.reload();
+  }
+});
+
+function updateCart(token) {
     // Fetch cart data from the server
     fetch('/get-cart', {
         method: 'GET',
@@ -229,6 +240,8 @@ function udateCart(token) {
 
   // Assuming you have an HTML form with the id "addressForm"
   const addressForm = document.getElementById('address-form');
+
+
 
   addressForm.addEventListener('submit', async (e) => {
     e.preventDefault();

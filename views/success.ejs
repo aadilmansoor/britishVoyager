@@ -29,6 +29,19 @@
 
 </body>
 <script>
+
+window.onpopstate = function(event) {
+  // Check if the event state is null (indicating a popstate event due to the back button)
+  if (event.state === null) {
+    // Redirect to the desired page
+    window.location.href = 'your-new-page.html';
+  }
+};
+
+// To add an initial state to the browser's history, you can use the following code:
+const initialState = { page: 'initial' };
+window.history.replaceState(initialState, document.title, window.location.href);
+
   const loader = document.getElementById('loader');
   const content = document.getElementById('page_content');
   const displayContent = () => {
@@ -40,10 +53,14 @@
 
   window.onload = displayContent;
 
-  // Add an event listener for the popstate event
-  window.addEventListener('popstate', function (event) {
-    window.location.href = '/home';
-  });
+  window.history.pushState({page: 1}, "", "");
+
+window.onpopstate = function(event) {
+    if(event){
+        window.location.href = 'https://www.google.com/';
+        // Code to handle back button or prevent from navigation
+    }
+}
 
   function getCart(token) {
     // Fetch cart data from the server
@@ -61,6 +78,7 @@
             if (data.cart.length === 0) {
                 // Cart is empty
                 const no_of_items = document.getElementById('no_of_items');
+                console.log(no_of_items);
                 no_of_items.innerHTML = "0 item";
                 const emptyCartMessage = document.createElement('p');
                 emptyCartMessage.textContent = 'Your cart is empty.';

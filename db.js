@@ -84,6 +84,10 @@ const userSchema = new mongoose.Schema({
       },
     }],
     default: [],
+  },
+  orders: {
+    type: Number,
+    default: 0
   }
 });
 
