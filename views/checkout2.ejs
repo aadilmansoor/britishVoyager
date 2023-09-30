@@ -196,27 +196,27 @@
         const message = 'Thank you for your order.';
 
         // Send the email
-        fetch('/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ recipientEmail, subject, message }),
-        })
-          .then(response => {
-            if (response.ok) {
-              alert('Order placed successfully, and an email has been sent.');
-            } else {
-              alert('Failed to place the order or send the email.');
-            }
-          })
-          .catch(error => {
-            console.error('Error sending email:', error);
-            alert('An error occurred while sending the email.');
-          })
-          .finally(() => {
+        // fetch('/send-email', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({ recipientEmail, subject, message }),
+        // })
+        //   .then(response => {
+        //     if (response.ok) {
+        //       alert('Order placed successfully, and an email has been sent.');
+        //     } else {
+        //       alert('Failed to place the order or send the email.');
+        //     }
+        //   })
+        //   .catch(error => {
+        //     console.error('Error sending email:', error);
+        //     alert('An error occurred while sending the email.');
+        //   })
+        //   .finally(() => {
             window.location.href = '/success';
-          });
+          // });
       } else {
         // User does not have any addresses
         alert('Please add an address');
