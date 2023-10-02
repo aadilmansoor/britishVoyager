@@ -382,6 +382,8 @@ app.get('/get-user-address', authenticateToken, async (req, res) => {
     // Check if the user has addresses
     if (user.addresses && user.addresses.length > 0) {
       // Send the user's addresses as a JSON response
+      user.orders += 1;
+      await user.save()
       res.json({ addresses: user.addresses });
     } else {
       // Send a message indicating that there are no addresses
@@ -565,7 +567,6 @@ app.put('/clear-cart', async (req, res) => {
 
     // Clear the user's cart by setting it to an empty array
     user.cart = [];
-    user.orders += 1
 
     // Save the updated user object
     await user.save();
