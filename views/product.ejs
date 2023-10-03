@@ -533,7 +533,13 @@
   }
 
   const checkoutto = (id) => {
-    window.location.href = `/checkout/${id}`
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Access individual parameters by name
+    const color = urlParams.get('color');
+    const size = document.querySelector(".selected").innerText;
+
+    window.location.href = `/checkout/${id}?color=${color}&&size=${size}`
   }
 
   const productto = (id, color) => {

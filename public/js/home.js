@@ -3,5 +3,5 @@ const productDetails = (id,color) => {
 }
 
 const checkoutto = (id) => {
-    window.location.href = `/checkout/${id}`
+    window.location.href = `/checkout/${id}?color=Powder&&size=Medium`
   }

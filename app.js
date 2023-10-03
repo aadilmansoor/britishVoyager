@@ -307,10 +307,12 @@ app.get('/checkout', async (req, res) => {
 
 app.get('/checkout/:id', async (req, res) => {
   const id = req.params.id;
+  const color = req.query.color;
+  const size = req.query.size;
   const product = await Product.findOne({ id: parseInt(id) });
   productName = product.name;
   productPrice = product.price;
-  res.render('checkout2', { productName, productPrice })
+  res.render('checkout2', { productName, productPrice, color, size })
 })
 
 // Handle the form submission for adding an address
