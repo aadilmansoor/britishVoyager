@@ -88,6 +88,12 @@ const userSchema = new mongoose.Schema({
   orders: {
     type: Number,
     default: 0
+  },
+  resetPasswordOTP: {
+    type: Number,
+  },
+  resetPasswordExpires: {
+    type: Date
   }
 });
 

@@ -299,7 +299,7 @@ function updateCart(token) {
       .then(data => {
         if (data.addresses && data.addresses.length > 0) {
           // User has at least one address
-          const recipientEmail = ''; // Replace with the actual recipient's email
+          const to = ''; // Replace with the actual recipient's email
           const subject = 'Order Confirmation';
           const message = 'Thank you for your order.';
           fetch('/clear-cart', {
@@ -330,7 +330,7 @@ function updateCart(token) {
           //   headers: {
           //     'Content-Type': 'application/json',
           //   },
-          //   body: JSON.stringify({ recipientEmail, subject, message }),
+          //   body: JSON.stringify({ to, subject, message }),
           // })
           //   .then(response => {
           //     if (response.ok) {
@@ -362,9 +362,9 @@ function updateCart(token) {
           //     console.error('Error sending email:', error);
           //     alert('An error occurred while sending the email.');
           //   })
-          // .finally(() => {
+
           window.location.href = '/success';
-          // });
+
         } else {
           // User does not have any addresses
           alert('Please add an address');

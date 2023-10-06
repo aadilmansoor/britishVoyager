@@ -7,7 +7,7 @@ const { connectDB, User, Product } = require('./db'); // Import the connectDB fu
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const paypal = require('paypal-rest-sdk');
-const nodemailer = require('nodemailer');
+const emailjs = require('@emailjs/nodejs');
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
@@ -22,12 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const transporter = nodemailer.createTransport({
-  service: 'Gmail', // e.g., 'Gmail'
-  auth: {
-    user: 'britishvoyager@gmail.com',
-    pass: process.env.GMAIL_PASSWORD,
-  },
+// Set your EmailJS credentials
+emailjs.init({
+  publicKey: 'f1mTSyc30e-mWmFTm',
+  privateKey: '9Vi4tLly_hjpZRvKr5Rw7',
 });
 
 paypal.configure({
@@ -79,6 +77,13 @@ async function getProductDetails(productId) {
     throw error;
   }
 }
+
+function generateOTP() {
+  // Generate a random 6-digit number
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  return otp.toString(); // Convert the number to a string before returning
+}
+
 
 // Function to get product details for items in the user's cart
 async function getCartDetails(cart) {
@@ -403,6 +408,11 @@ app.get('/success', async (req, res) => {
   res.render('success')
 })
 
+app.get('/password-reset', async (req, res) => {
+  const email = req.query.email;
+  res.render('password-reset', { email})
+})
+
 app.post('/create-payment', (req, res) => {
   const createPaymentJson = {
     intent: 'sale',
@@ -461,24 +471,23 @@ app.get('/cancel-payment', (req, res) => {
 });
 
 app.post('/send-email', (req, res) => {
-  const { recipientEmail, subject, message } = req.body;
+  // Get data from the form (assuming you have form fields 'to', 'subject', 'message')
+  const { to, subject, message } = req.body;
 
-  const mailOptions = {
-    from: 'britishvoyager@gmail.com',
-    to: recipientEmail,
-    subject: subject,
-    text: message,
-  };
+  var templateParams = {
+    to, 
+    subject, 
+    message
+};
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ success: false, error: 'Email sending failed' });
-    } else {
-      console.log('Email sent:', info.response);
-      res.status(200).json({ success: true, message: 'Email sent successfully' });
-    }
-  });
+emailjs.send('service_100tr92','template123', templateParams)
+	.then(function(response) {
+	   console.log('SUCCESS!', response.status, response.text);
+	}, function(err) {
+	   console.log('FAILED...', err);
+	});
+
+
 });
 
 // Define a route for handling search requests
@@ -670,7 +679,7 @@ app.get('/get-orders', async (req, res) => {
       return res.status(401).json({ message: 'Authorization token not provided' });
     }
 
- 
+
     const decodedToken = jwt.verify(token, secretKey);
     const userEmail = decodedToken.email;
 
@@ -683,9 +692,9 @@ app.get('/get-orders', async (req, res) => {
 
     orders = user.orders;
 
-    if(orders === 0){
+    if (orders === 0) {
       res.json({ orders: "0 order" });
-    } else if(orders === 1){
+    } else if (orders === 1) {
       res.json({ orders: "1 order" });
     } else {
       res.json({ orders: `${orders} orders` });
@@ -696,6 +705,71 @@ app.get('/get-orders', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+app.post('/forgot-password', async (req, res) => {
+  const email = req.body.email;
+  const otp = generateOTP(); // Generate a 6-digit OTP
+
+  // Step 2: Store OTP and Expiry Time in the Database
+  const user = await User.findOneAndUpdate({ email }, {
+      resetPasswordOTP: otp,
+      resetPasswordExpires: Date.now() + 300000, // OTP expires in 5 minutes (300,000 milliseconds)
+  });
+
+  if (!user) {
+      return res.status(404).send('User not found.');
+  }
+
+
+  var templateParams = {
+    to: email, 
+    subject: 'Reset Password', 
+    message: `We have received a request to reset the password for your account. To complete the password reset process, please enter the following One-Time Password (OTP) within the next 5 minutes:
+
+    OTP: ${otp}
+    
+    If you did not request a password reset, please ignore this email. Your account remains secure.
+    
+    To reset your password, click on the provided link or visit our website and follow the 'Forgot Password' link. After entering the OTP, you will be prompted to create a new password for your account.
+    
+    Please ensure that you keep this OTP confidential and do not share it with anyone. OTPs are time-sensitive and can only be used once.`
+};
+
+emailjs.send('service_100tr92','template123', templateParams)
+	.then(function(response) {
+	   console.log('SUCCESS!', response.status, response.text);
+     res.json({ success: true, email: email });
+	}, function(err) {
+	   console.log('FAILED...', err);
+	});
+
+});
+
+app.post('/reset-password', async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  // Step 3: Verify OTP and its Expiration Time
+  const user = await User.findOne({
+      email,
+      resetPasswordOTP: otp,
+      resetPasswordExpires: { $gt: Date.now() }
+  });
+
+  if (!user) {
+      return res.status(401).send('Invalid or expired OTP.');
+  }
+
+  // Step 4: Update Password
+  const hashedPassword = await bcrypt.hash(newPassword, 10); // Hash the new password
+  user.password = hashedPassword;
+  user.resetPasswordOTP = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.send('Password reset successfully.');
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
