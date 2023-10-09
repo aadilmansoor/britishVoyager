@@ -26,7 +26,7 @@
     <div class="cart_mini">
       <div class="mini_align">
         <img src="/images/1/Black/no_bg.png" alt="" class="mini-cartImg">
-        <p class="mini_para">British Voyager Ascend</p><span class="mini_para ">KD 45000</span>
+        <p class="mini_para">British Voyager Ascend</p><span class="mini_para ">KD 9.29</span>
       </div>
       <div>
         <div class="dropdown">
@@ -51,27 +51,27 @@
     <div class="main-product">
       <div class="product-left">
         <div class="img-wrap">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',1)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>1_sq.jpg" alt="">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',2)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>2_sq.jpg" alt="product-image">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',3)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>3_sq.jpg" alt="product-image">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',4)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>4_sq.jpg" alt="product-image">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',5)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>5_sq.jpg" alt="product-image">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',6)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>6_sq.jpg" alt="product-image">
-          <img onclick="imageSelector('<%=product.id%>','<%=color%>',7)"
-            src="/images/<%=product.id%>/<%=color%>/<%=product.id%>7_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',1)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>1_sq.jpg" alt="">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',2)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>2_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',3)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>3_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',4)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>4_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',5)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>5_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',6)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>6_sq.jpg" alt="product-image">
+          <img onclick="imageSelector('<%=productId%>','<%=color%>',7)"
+            src="/images/<%=productId%>/<%=color%>/<%=productId%>7_sq.jpg" alt="product-image">
         </div>
-        <div class=" main-image"><img id="main_img" src="/images/<%=product.id%>/<%=color%>/<%= product.id %>1.jpg"
+        <div class=" main-image"><img id="main_img" src="/images/<%=productId%>/<%=color%>/<%= productId %>1.jpg"
             alt="product image"></div>
       </div>
       <div class="product-right">
         <h3>
-          <%= product.name %>
+          <%= productName %>
         </h3>
         <span class="my-1">
           <img src="/images/review star.png" alt="">
@@ -81,15 +81,17 @@
           <img src="/images/review star.png" alt="">
           <p class="product-reviewpara d-inline">33 review</p><br>
         </span>
-        <p class="d-inline para-price me-2">Selling price KD 45000/-</p> <span class="offer-span">SAVE 56%</span>
+        <p class="d-inline para-price me-2">Selling price KD <span id="productPrice">
+            <%= m_price %>
+          </span>/-</p> <span class="offer-span">SAVE 56%</span>
         <span class="d-block mb-3 size-para">(inclusive all taxes) </span>
         <p>COLOR</p>
         <div class="color-selector mb-3">
-          <div id="Black" class="color-black color-circle" onclick="productto('<%=product.id%>','Black')"></div>
-          <div id="Darkgray" class="color-darkgray color-circle" onclick="productto('<%=product.id%>','Darkgray')">
+          <div id="Black" class="color-black color-circle" onclick="productto('<%=productId%>','Black')"></div>
+          <div id="Darkgray" class="color-darkgray color-circle" onclick="productto('<%=productId%>','Darkgray')">
           </div>
-          <div id="Silver" class="color-silver color-circle" onclick="productto('<%=product.id%>','Silver')"></div>
-          <div id="Powder" class="color-powder color-circle" onclick="productto('<%=product.id%>','Powder')"></div>
+          <div id="Silver" class="color-silver color-circle" onclick="productto('<%=productId%>','Silver')"></div>
+          <div id="Powder" class="color-powder color-circle" onclick="productto('<%=productId%>','Powder')"></div>
 
         </div>
         <div class="d-flex justify-content-between size-para ">
@@ -99,15 +101,15 @@
 
 
         <div class="size-button d-flex justify-content-evenly mb-3">
-          <button class="btn-primary btn-size">Small</button>
-          <button class="btn-primary btn-size selected">Medium</button>
-          <button class="btn-primary btn-size">Large</button>
+          <button class="btn-primary btn-size" data-price="<%= s_price %>">Small</button>
+          <button class="btn-primary btn-size selected" data-price="<%= m_price %>">Medium</button>
+          <button class="btn-primary btn-size" data-price="<%= l_price %>">Large</button>
         </div>
-        <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= product.id %>">ADD TO
+        <button id="cart-button" class="btn-addtocart btn-cart d-block mb-2" data-product-id="<%= productId %>">ADD TO
           CART</button>
-        <button onclick="checkoutto('<%= product.id%>')" class="btn-buynow btn-cart d-block">BUY NOW</button>
+        <button onclick="checkoutto('<%= productId%>')" class="btn-buynow btn-cart d-block">BUY NOW</button>
         <p class="mt-5 product-desc">
-          <%=product.desc%>
+          <%=desc%>
         </p>
         <div class="prod-desc-properties-main">
           <div class="prod-desc-properties">
@@ -514,6 +516,11 @@
 
         // Add the 'selected' class to the clicked button
         button.classList.add('selected');
+        // Get the price from the clicked button's data attribute
+        const price = button.getAttribute('data-price');
+        const priceElement = document.getElementById('productPrice');
+        // Update the displayed price
+        priceElement.textContent = price; // Assuming 'priceElement' is a span or other element to display the price
       })
     })
   });

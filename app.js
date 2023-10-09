@@ -188,7 +188,7 @@ app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
   const color = req.query.color;
   const product = await Product.findOne({ id: parseInt(id) });
-  res.render('product', { product, color });
+  res.render('product', { productId: product.id, productName:product.name,  s_price: product.s_price, m_price: product.m_price, l_price: product.l_price,  color, desc: product.desc });
 });
 
 app.get('/profile', (req, res) => {

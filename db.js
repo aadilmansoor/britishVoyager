@@ -106,7 +106,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
+  s_price: {
+    type: Number,
+    required: true,
+  },
+  m_price: {
+    type: Number,
+    required: true,
+  },
+  l_price: {
     type: Number,
     required: true,
   },
