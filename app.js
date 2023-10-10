@@ -96,14 +96,14 @@ async function getCartDetails(cart) {
         product: productDetails,
         quantity: cartItem.quantity,
         size: cartItem.size,
-        color: cartItem.color
+        color: cartItem.color,
+        price: cartItem.price
       });
     }
   }
 
   return cartDetails;
 }
-
 
 //redirect to login or dashboard
 app.get('/', (req, res) => {
@@ -188,7 +188,7 @@ app.get('/product/:id', async (req, res) => {
   const id = req.params.id;
   const color = req.query.color;
   const product = await Product.findOne({ id: parseInt(id) });
-  res.render('product', { productId: product.id, productName:product.name,  s_price: product.s_price, m_price: product.m_price, l_price: product.l_price,  color, desc: product.desc });
+  res.render('product', { productId: product.id, productName: product.name, s_price: product.s_price, m_price: product.m_price, l_price: product.l_price, color, desc: product.desc });
 });
 
 app.get('/profile', (req, res) => {
@@ -222,11 +222,19 @@ app.post('/add-to-cart', async (req, res) => {
       existingCartItem.quantity += 1;
     } else {
       // If not, add the product to the user's cart
+      if (size === "Small") {
+        price = product.s_price;
+      } else if (size === "Medium") {
+        price = product.m_price;
+      } else {
+        price = product.l_price;
+      }
       user.cart.push({
         product: product._id, // Store the product's ObjectId
         quantity: 1,
         size,
-        color: capitalizeFirstLetter(color)
+        color: capitalizeFirstLetter(color),
+        price
       });
     }
 
@@ -290,12 +298,12 @@ app.get('/get-cart-html', authenticateToken, async (req, res) => {
     const cartItemHtml = cartDetails.map(item => `
       <tr>
         <td scope="row" colspan="4">${item.product.name} ${item.color} - ${item.size} × ${item.quantity}</td>
-        <td colspan="1">${item.product.price}</td>
+        <td colspan="1">${item.price}</td>
       </tr>
     `).join('');
 
     // Calculate the total price
-    const total = cartDetails.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+    const total = cartDetails.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     // Send the cart item HTML and total as a response
     res.json({ cartHtml: cartItemHtml, total });
@@ -410,7 +418,7 @@ app.get('/success', async (req, res) => {
 
 app.get('/password-reset', async (req, res) => {
   const email = req.query.email;
-  res.render('password-reset', { email})
+  res.render('password-reset', { email })
 })
 
 app.post('/create-payment', (req, res) => {
@@ -474,18 +482,18 @@ app.post('/send-email', (req, res) => {
   // Get data from the form (assuming you have form fields 'to', 'subject', 'message')
   const { to, subject, message } = req.body;
 
-  var templateParams = {
-    to, 
-    subject, 
+  const templateParams = {
+    to,
+    subject,
     message
-};
+  };
 
-emailjs.send('service_100tr92','template123', templateParams)
-	.then(function(response) {
-	   console.log('SUCCESS!', response.status, response.text);
-	}, function(err) {
-	   console.log('FAILED...', err);
-	});
+  emailjs.send('service_100tr92', 'template123', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+    }, function (err) {
+      console.log('FAILED...', err);
+    });
 
 
 });
@@ -712,18 +720,18 @@ app.post('/forgot-password', async (req, res) => {
 
   // Step 2: Store OTP and Expiry Time in the Database
   const user = await User.findOneAndUpdate({ email }, {
-      resetPasswordOTP: otp,
-      resetPasswordExpires: Date.now() + 300000, // OTP expires in 5 minutes (300,000 milliseconds)
+    resetPasswordOTP: otp,
+    resetPasswordExpires: Date.now() + 300000, // OTP expires in 5 minutes (300,000 milliseconds)
   });
 
   if (!user) {
-      return res.status(404).send('User not found.');
+    return res.status(404).send('User not found.');
   }
 
 
   var templateParams = {
-    to: email, 
-    subject: 'Reset Password', 
+    to: email,
+    subject: 'Reset Password',
     message: `We have received a request to reset the password for your account. To complete the password reset process, please enter the following One-Time Password (OTP) within the next 5 minutes:
 
     OTP: ${otp}
@@ -733,15 +741,15 @@ app.post('/forgot-password', async (req, res) => {
     To reset your password, click on the provided link or visit our website and follow the 'Forgot Password' link. After entering the OTP, you will be prompted to create a new password for your account.
     
     Please ensure that you keep this OTP confidential and do not share it with anyone. OTPs are time-sensitive and can only be used once.`
-};
+  };
 
-emailjs.send('service_100tr92','template123', templateParams)
-	.then(function(response) {
-	   console.log('SUCCESS!', response.status, response.text);
-     res.json({ success: true, email: email });
-	}, function(err) {
-	   console.log('FAILED...', err);
-	});
+  emailjs.send('service_100tr92', 'template123', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+      res.json({ success: true, email: email });
+    }, function (err) {
+      console.log('FAILED...', err);
+    });
 
 });
 
@@ -750,13 +758,13 @@ app.post('/reset-password', async (req, res) => {
 
   // Step 3: Verify OTP and its Expiration Time
   const user = await User.findOne({
-      email,
-      resetPasswordOTP: otp,
-      resetPasswordExpires: { $gt: Date.now() }
+    email,
+    resetPasswordOTP: otp,
+    resetPasswordExpires: { $gt: Date.now() }
   });
 
   if (!user) {
-      return res.status(401).send('Invalid or expired OTP.');
+    return res.status(401).send('Invalid or expired OTP.');
   }
 
   // Step 4: Update Password
@@ -770,6 +778,63 @@ app.post('/reset-password', async (req, res) => {
   res.send('Password reset successfully.');
 });
 
+app.post('/send-email-order', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+
+  try {
+
+    // Find the user by email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const orderItems = await Promise.all(user.cart.map(async (item) => {
+      try {
+        const product = await Product.findById(item.product);
+        if (!product) {
+          throw new Error(`Product with ID ${item.product} not found.`);
+        }
+        const price = item.price;
+        const itemTotal = price * item.quantity;
+        return `${product.name} ${item.color} - ${item.size} x ${item.quantity} - ${price} KWD per unit = ${itemTotal} KWD`;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error occurred while processing cart items.');
+      }
+    }));
+
+    const subtotal = user.cart.reduce((total, item) => {
+      const price = item.price;
+      return total + price * item.quantity;
+    }, 0);
+
+    const orderSummary = `Order Summary:\n\n${orderItems.join('\n')}\n\nSubtotal: ${subtotal} KWD`;
+
+
+    const templateParams = {
+      to: decodedToken.email,
+      subject: 'Order Confirmation',
+      message: `Thank you for shopping with British Voyager! We are pleased to confirm that your order has been successfully placed and is currently being processed. Below, you will find the details of your order:\n\n
+      ${orderSummary}\n\nThank you again for choosing British Voyager. We appreciate your business!
+
+      `
+    };
+
+    emailjs.send('service_100tr92', 'template123', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+    }, function (err) {
+      console.log('FAILED...', err);
+    });
+
+  } catch (error) {
+
+  }
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

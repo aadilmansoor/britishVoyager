@@ -232,7 +232,7 @@ function getCart(token) {
                                  </div>
                             </div>
                             <div class="price-quantity">
-                                <p class="price">KD 45000/-</p>
+                                <p class="price">KD ${item.price}/-</p>
                                 <div class="quantity">
                                     <button class="no_style increase" onclick="decrease(this)"><span class="subtract">-</span></button><span class="number">${item.quantity}</span><button class="no_style decrease" onclick="increase(this)"><span class="add">+</span></button>
                                 </div>
