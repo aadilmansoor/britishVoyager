@@ -4,6 +4,10 @@ function decodeJwt(token) {
     return JSON.parse(payloadDecoded);
 }
 
+function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const cartButton = document.querySelector(".nav_end .fa-cart-shopping");
     const cart = document.getElementById("cart");
@@ -29,9 +33,20 @@ document.addEventListener('DOMContentLoaded', function () {
             login.addEventListener('click', () => {
                 window.location.href = '/login'
             })
+            const logButton = document.getElementById('logButton');
+            logButton.textContent = "Log In";
+            logButton.addEventListener('click', () => {
+                window.location.href="/login"
+            })
             console.log('Token has expired');
         } else {
             // Token is still valid, continue with your application logic
+            const logButton = document.getElementById('logButton');
+            logButton.textContent = "Log Out";
+            logButton.addEventListener('click', () => {
+                deleteCookie('token');
+                window.location.href = "/home"
+            })
             console.log('Token is still valid');
         }
     } else {
@@ -46,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function () {
         login.addEventListener('click', () => {
             window.location.href = '/login'
         })
+        const logButton = document.getElementById('logButton');
+            logButton.textContent = "Log In";
+            logButton.addEventListener('click', () => {
+                window.location.href="/login"
+            })
         console.log('Token not found');
     }
 
