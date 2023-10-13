@@ -324,7 +324,13 @@ app.get('/checkout/:id', async (req, res) => {
   const size = req.query.size;
   const product = await Product.findOne({ id: parseInt(id) });
   productName = product.name;
-  productPrice = product.price;
+  if(size==="Small"){
+    productPrice = product.s_price;
+  } else if(size === "Medium"){
+    productPrice = product.m_price;
+  } else {
+    productPrice = product.l_price;
+  }
   res.render('checkout2', { productName, productPrice, color, size })
 })
 
@@ -800,7 +806,7 @@ app.post('/send-email-order', authenticateToken, async (req, res) => {
         }
         const price = item.price;
         const itemTotal = price * item.quantity;
-        return `${product.name} ${item.color} - ${item.size} x ${item.quantity} - ${price} KWD per unit = ${itemTotal} KWD`;
+        return `${product.name} ${item.color} (${item.size}) x ${item.quantity} - ${price} KWD per unit = ${itemTotal} KWD`;
       } catch (error) {
         console.error(error);
         throw new Error('Error occurred while processing cart items.');
@@ -812,7 +818,52 @@ app.post('/send-email-order', authenticateToken, async (req, res) => {
       return total + price * item.quantity;
     }, 0);
 
+    
+
     const orderSummary = `Order Summary:\n\n${orderItems.join('\n')}\n\nSubtotal: ${subtotal} KWD`;
+
+
+    const templateParams = {
+      to: decodedToken.email,
+      subject: 'Order Confirmation',
+      message: `Thank you for shopping with British Voyager! We are pleased to confirm that your order has been successfully placed and is currently being processed. Below, you will find the details of your order:\n\n
+      ${orderSummary}\n\nThank you again for choosing British Voyager. We appreciate your business!
+
+      `
+    };
+
+    emailjs.send('service_100tr92', 'template123', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+    }, function (err) {
+      console.log('FAILED...', err);
+    });
+
+  } catch (error) {
+
+  }
+})
+
+app.post('/send-email-order2', authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer '
+  const decodedToken = jwt.verify(token, secretKey);
+  const { productId, color, size, price } = req.body;
+  console.log(productId,color,size,price);
+
+  try {
+
+    // Find the user by email
+    const user = await User.findOne({ email: decodedToken.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    const product = await Product.findOne({id:productId});
+    
+
+    const orderSummary = `Order Summary:\n\n${product.name} ${color} (${size}) x 1 - ${price} KWD per unit = ${price} KWD\n\nSubtotal: ${price} KWD`;
 
 
     const templateParams = {

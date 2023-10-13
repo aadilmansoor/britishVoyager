@@ -69,7 +69,8 @@
             <tbody id="table-cart">
               <tr>
                 <td scope="row" colspan="4">
-                  <%= productName%> <%=color%> - <%= size%> × 1
+                  <%= productName%>
+                    <%=color%> - <%= size%> × 1
                 </td>
                 <td colspan="1">KD <%= productPrice %>
                 </td>
@@ -87,7 +88,7 @@
           </div>
           <div class="d-flex justify-content-between mt-3 mb-3">
             <p class="fw-bolder" style="font-size: 16px;">Total</p>
-            <p class="fw-bolder" id="total" style="margin-right: 100px;">KD <%= productPrice %>
+            <p class="fw-bolder" id="total" style="margin-right: 100px;">KD <span id="p_price"><%= productPrice %></span>
             </p>
           </div>
           <div class="row mb-3" style="row-gap: 10px;">
@@ -130,7 +131,7 @@
 </body>
 
 <script>
-
+  
   const token = getCookie('token');
   // Assuming you have an HTML form with the id "addressForm"
   const addressForm = document.getElementById('address-form');
@@ -174,60 +175,62 @@
   });
 
   const success = () => {
-  // Make an HTTP GET request to the server to fetch the user's address
-  fetch('/get-user-address', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}` // Include your JWT token here
-    },
-  })
-    .then(response => {
-      if (response.ok) {
-        return response.json(); // Parse the response as JSON
-      } else {
-        throw new Error('Failed to fetch user address');
-      }
+    // Make an HTTP GET request to the server to fetch the user's address
+    fetch('/get-user-address', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}` // Include your JWT token here
+      },
     })
-    .then(data => {
-      if (data.addresses && data.addresses.length > 0) {
-        // User has at least one address
-        const recipientEmail = 'recipient@example.com'; // Replace with the actual recipient's email
-        const subject = 'Order Confirmation';
-        const message = 'Thank you for your order.';
+      .then(response => {
+        if (response.ok) {
+          return response.json(); // Parse the response as JSON
+        } else {
+          throw new Error('Failed to fetch user address');
+        }
+      })
+      .then(data => {
+        if (data.addresses && data.addresses.length > 0) {
+          // User has at least one address
+          const currentURL = window.location.href;
+          const url = new URL(currentURL);
+          const urlParams = new URLSearchParams(window.location.search);
 
-        // Send the email
-        // fetch('/send-email', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ recipientEmail, subject, message }),
-        // })
-        //   .then(response => {
-        //     if (response.ok) {
-        //       alert('Order placed successfully, and an email has been sent.');
-        //     } else {
-        //       alert('Failed to place the order or send the email.');
-        //     }
-        //   })
-        //   .catch(error => {
-        //     console.error('Error sending email:', error);
-        //     alert('An error occurred while sending the email.');
-        //   })
-        //   .finally(() => {
-            window.location.href = '/success';
-          // });
-      } else {
-        // User does not have any addresses
-        alert('Please add an address');
-        console.log('User does not have any addresses');
-      }
-    })
-    .catch(error => {
-      // Handle errors, e.g., display an error message
-      console.error('Error:', error);
-    });
-};
+          // Access individual parameters by name
+          const productId = url.pathname.split('/').pop();
+          const color = urlParams.get('color');
+          const size = urlParams.get('size');
+          const price = document.getElementById('p_price').textContent;
+
+          // Send the email
+          fetch('/send-email-order2', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({productId, size, color, price}),
+          })
+            .then(response => response.json())
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.error('Error sending email:', error);
+              alert('An error occurred while sending the email.');
+            })
+          window.location.href = '/success';
+        } else {
+          // User does not have any addresses
+          alert('Please add an address');
+          console.log('User does not have any addresses');
+        }
+      })
+      .catch(error => {
+        // Handle errors, e.g., display an error message
+        console.error('Error:', error);
+      });
+  };
 
 
 
